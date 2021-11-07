@@ -5,6 +5,7 @@ import { graphqlUploadExpress } from 'graphql-upload';
 import { AppResolver } from './app.resolver';
 import { AdminModule } from './admin/admin.module';
 import { SchoolModule } from './school/school.module';
+import { StudentModule } from './student/student.module';
 
 @Module({
   imports: [
@@ -13,6 +14,7 @@ import { SchoolModule } from './school/school.module';
     // Domain
     AdminModule,
     SchoolModule,
+    StudentModule,
   ],
   providers: [AppResolver],
 })
