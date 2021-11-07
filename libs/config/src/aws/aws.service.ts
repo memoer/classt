@@ -4,6 +4,7 @@ import * as aws from 'aws-sdk';
 @Injectable()
 export class AwsService {
   private readonly s3;
+
   constructor() {
     aws.config.update({
       accessKeyId: process.env.AWS_ACCESS_KEY_ID,

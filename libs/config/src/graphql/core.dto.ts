@@ -28,6 +28,7 @@ export function PaginationOutput<T>(classRef: Type<T>): any {
 export class PaginationInputBySkip {
   static readonly DEFAULT_PAGE_NUMBER = 1;
   static readonly DEFAULT_PAGE_SIZE = 10;
+
   @Field(() => Int, { nullable: true, defaultValue: PaginationInputBySkip.DEFAULT_PAGE_NUMBER })
   @IsNumber()
   @IsOptional()

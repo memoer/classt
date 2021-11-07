@@ -10,7 +10,7 @@ testUnitPath=${shellPath}/test-unit/${domainName}
 
 yarn nest g res ${domainName}
 # ? src module package 설정
-mkdir ${modulePath}/application ${modulePath}/dao ${modulePath}/domain ${modulePath}/dto ${modulePath}/infra ${modulePath}/resolver
+mkdir ${modulePath}/application ${modulePath}/domain ${modulePath}/dto ${modulePath}/infra ${modulePath}/resolver
 mv ${modulePath}/${domainName}.resolver.ts ${modulePath}/resolver/${domainName}-query.resolver.ts
 mv ${modulePath}/${domainName}.service.ts ${modulePath}/application
 # ? *.spec.ts 파일 이동

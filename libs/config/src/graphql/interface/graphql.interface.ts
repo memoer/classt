@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 export interface MyRequest extends Request {
-  user: { id: number };
+  user: any;
 }
 export interface GqlCtx {
   req: MyRequest;
