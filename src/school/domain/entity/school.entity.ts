@@ -1,5 +1,6 @@
 import { BaseEntity } from '@app/config';
-import { Column, Entity } from 'typeorm';
+import { Column, Entity, OneToMany } from 'typeorm';
+import { SchoolNews } from './school-news.entity';
 
 @Entity()
 export class School extends BaseEntity {
@@ -7,4 +8,6 @@ export class School extends BaseEntity {
   location: string;
   @Column()
   name: string;
+  @OneToMany(() => SchoolNews, (schoolNews) => schoolNews.school, { cascade: true })
+  schoolNewsList: SchoolNews[];
 }
