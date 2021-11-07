@@ -14,7 +14,6 @@ export enum AdminAuthType {
   CREATE_SCHOOL = 'create_school',
   UPDATE_SCHOOL = 'update_school',
   DELETE_SCHOOL = 'delete_school',
-  ALL_SCHOOL = 'all_school',
 }
 
 @Entity()
