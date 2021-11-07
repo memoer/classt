@@ -1,0 +1,3 @@
+export const TYPEORM_ERROR = {
+  DUPLICATED_UNIQUE: '23505',
+};

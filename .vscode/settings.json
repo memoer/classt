@@ -1,0 +1,23 @@
+{
+  "javascript.format.enable": false,
+  "editor.formatOnSave": true,
+  // enable auto fix using eslint
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  // 다른 editor의 trim white space 설정에 대해 무시
+  "diffEditor.ignoreTrimWhitespace": false,
+  "files.watcherExclude": {
+    "**/.git/objects/**": true,
+    "**/.git/subtree-cache/**": true,
+    "**/.hg/store/**": true
+  },
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/bower_components": true,
+    "**/*.code-search": true,
+    "**/coverage": true,
+    "**/dist": true,
+    "**/scripts": true,
+  },
+}
