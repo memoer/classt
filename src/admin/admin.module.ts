@@ -13,10 +13,10 @@ import { AdminTypeResolver } from './resolver/admin-type.resolver';
   imports: [TypeOrmModule.forFeature([AdminRepository])],
   providers: [
     // 표현
-    AdminQueryResolver,
-    AdminMutationResolver,
-    AdminTypeResolver,
     AdminAuthMutationResolver,
+    AdminMutationResolver,
+    AdminQueryResolver,
+    AdminTypeResolver,
     // 응용
     AdminService,
     AdminAuthService,

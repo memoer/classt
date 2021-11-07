@@ -46,29 +46,29 @@ export class StudentService {
 
   @Transactional()
   async delete(
-    user: Student,
+    student: Student,
     plainPassword: DeleteStudentArgs['password'],
   ): ReturnType<StudentMutationResolver['delete']> {
     await this.utilValidator.ifWrongPasswordThrow({
       plainPassword,
-      hashPassword: user.password,
+      hashPassword: student.password,
     });
-    const result = await this.studentRepository.softDelete(user.id);
+    const result = await this.studentRepository.softDelete(student.id);
     return result.affected === 1;
   }
 
   @Transactional()
   async update(
-    user: Student,
+    student: Student,
     { email, password, confirmPassword, name, gender, birthDate }: UpdateStudentInput,
   ): ReturnType<StudentMutationResolver['update']> {
     if (password) {
       this.utilValidator.ifThereIsPasswordButWithoutConfirmPasswordThrow(confirmPassword);
-      user.password = await this.utilHash.genHash(password);
+      student.password = await this.utilHash.genHash(password);
     }
-    user.update({ email, name, gender, birthDate });
-    await this.studentRepository.save(user);
-    return plainToClass(StudentModel, user);
+    student.update({ email, name, gender, birthDate });
+    await this.studentRepository.save(student);
+    return plainToClass(StudentModel, student);
   }
 
   async getToken({ email, password }: GetTokenInput): ReturnType<UtilJwt['getToken']> {

@@ -1,4 +1,5 @@
 import { BaseEntity } from '@app/config';
+import { StudentSchool } from '@app/src/student/domain/entity/student-school.entity';
 import { Column, Entity, OneToMany } from 'typeorm';
 import { SchoolNews } from './school-news.entity';
 
@@ -10,6 +11,8 @@ export class School extends BaseEntity {
   name: string;
   @OneToMany(() => SchoolNews, (schoolNews) => schoolNews.school, { cascade: true })
   schoolNewsList: SchoolNews[];
+  @OneToMany(() => StudentSchool, (studentSchool) => studentSchool.school)
+  studentList: StudentSchool[];
 
   addNews(newSchoolNews: SchoolNews): void {
     this.schoolNewsList = [...this.schoolNewsList, newSchoolNews];

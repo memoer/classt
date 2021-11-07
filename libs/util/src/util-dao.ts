@@ -1,12 +1,32 @@
 import { Injectable } from '@nestjs/common';
 import { UtilCommon } from './util-common';
-import { FindAndCountArgs, VisibleOnPublishedArgs } from './dto/util-dao.dto';
+import {
+  FindAndCountArgs,
+  GetPaginationArgs,
+  GetPaginationOutput,
+  GetSkipArgs,
+  VisibleOnPublishedArgs,
+} from './dto/util-dao.dto';
 import { plainToClass } from 'class-transformer';
 
 // 당분간 쓰지 않는 걸로
 @Injectable()
 export class UtilDAO {
   constructor(private readonly utilCommon: UtilCommon) {}
+
+  getSkip({ pageNumber, pageSize }: GetSkipArgs): number {
+    return (pageNumber - 1) * pageSize;
+  }
+
+  getPaginationOutput<T>({ dataList, count, page }: GetPaginationArgs<T>): GetPaginationOutput<T> {
+    const totalPage = Math.ceil(count / page.pageSize);
+    return {
+      dataList,
+      totalPage,
+      curPage: page.pageNumber,
+      hasNextPage: totalPage !== page.pageNumber,
+    };
+  }
 
   visibleOnPublished({ alias, condition, at }: VisibleOnPublishedArgs): string {
     const sign = condition === 'equal' ? '=' : '<=';
@@ -26,18 +46,16 @@ export class UtilDAO {
     }
     if (offset === 'limit') baseQb.limit(page.pageSize);
     else baseQb.take(page.pageSize);
-    const [dataList, count] = (await baseQb
-      .skip(this.utilCommon.getSkip(page))
-      .getManyAndCount()) as [T[], number];
+    const [dataList, count] = (await baseQb.skip(this.getSkip(page)).getManyAndCount()) as [
+      T[],
+      number,
+    ];
     return [plainToClass(mapper, dataList), count];
   }
 
   async findRawAndCount<T>({ baseQb, page, mapper }: FindAndCountArgs<T>): Promise<[T[], number]> {
     const clonedBaseQb = baseQb.clone();
-    const dataList = await baseQb
-      .take(page.pageSize)
-      .skip(this.utilCommon.getSkip(page))
-      .getRawMany();
+    const dataList = await baseQb.take(page.pageSize).skip(this.getSkip(page)).getRawMany();
     const count = await clonedBaseQb.getCount();
     return [plainToClass(mapper, dataList), count];
   }

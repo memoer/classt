@@ -1,21 +1,21 @@
 import { AuthGuardOf, CurrentUser } from '@app/etc';
 import { Resolver, Args, Mutation } from '@nestjs/graphql';
-import { SubscribeSchoolService } from '../application/subscribe-school.service';
+import { StudentSchoolService } from '../application/student-school.service';
 import { Student } from '../domain/entity/student.entity';
-import { StudentSubscribedSchoolModel } from '../dto/student-subscribed-school.model';
+import { StudentSchoolModel } from '../dto/student-school.model';
 import { StudentModel } from '../dto/student.model';
 import { SubscribeSchoolArgs } from '../dto/subscribe-school.in';
 
 @Resolver((of) => StudentModel)
 @AuthGuardOf('STUDENT')
-export class SubscribeSchoolMutationResolver {
-  constructor(private readonly subscribeSchoolService: SubscribeSchoolService) {}
+export class StudentSchoolMutationResolver {
+  constructor(private readonly subscribeSchoolService: StudentSchoolService) {}
 
-  @Mutation((returns) => StudentSubscribedSchoolModel, { name: 'subscribeSchool' })
+  @Mutation((returns) => StudentSchoolModel, { name: 'subscribeSchool' })
   subscribe(
     @CurrentUser() me: Student,
     @Args() { schoolId }: SubscribeSchoolArgs,
-  ): Promise<StudentSubscribedSchoolModel> {
+  ): Promise<StudentSchoolModel> {
     return this.subscribeSchoolService.subscribe(me, schoolId);
   }
 

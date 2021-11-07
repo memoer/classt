@@ -6,4 +6,6 @@ export class SchoolNewsModel {
   id: number;
   @Field((type) => String)
   information: string;
+  @Field((type) => Date)
+  createdAt: Date;
 }

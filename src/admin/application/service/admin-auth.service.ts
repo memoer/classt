@@ -21,7 +21,10 @@ export class AdminAuthService {
     );
     admin.addAuth(newAdminAuthList);
     await this.adminRepository.save(admin);
-    return plainToClass(AdminAuthModel, newAdminAuthList);
+    return plainToClass(
+      AdminAuthModel,
+      newAdminAuthList.filter(({ id }) => !!id),
+    );
   }
 
   @Transactional()

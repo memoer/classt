@@ -29,7 +29,7 @@ export class AuthGuard implements CanActivate {
       .createQueryBuilder()
       .select(['admin', 'admin_auth'])
       .from(Admin, 'admin')
-      .leftJoinAndSelect('admin.authList', 'admin_auth')
+      .leftJoin('admin.authList', 'admin_auth')
       .where('admin.id = :id', { id })
       .getOne();
   }
@@ -37,10 +37,12 @@ export class AuthGuard implements CanActivate {
   private async getStudent(id: number): Promise<Student> {
     return this.dbConn
       .createQueryBuilder()
-      .select(['student', 'subscribed_school_list'])
+      .select(['student', 'student_school'])
       .from(Student, 'student')
-      .leftJoinAndSelect('student.subscribedSchoolList', 'subscribed_school_list')
+      .withDeleted()
+      .leftJoin('student.schoolList', 'student_school')
       .where('student.id = :id', { id })
+      .andWhere('student.deleted_at IS NULL')
       .getOne();
   }
 

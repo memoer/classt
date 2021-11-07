@@ -1,6 +1,6 @@
 import { BaseEntity } from '@app/config';
 import { Column, Entity, OneToMany } from 'typeorm';
-import { StudentSubscribedSchool } from './subscribe-student-school.entity';
+import { StudentSchool } from './student-school.entity';
 
 export enum Gender {
   FEMALE = 'female',
@@ -18,20 +18,28 @@ export class Student extends BaseEntity {
   email: string;
   @Column()
   password: string;
-  @OneToMany(
-    () => StudentSubscribedSchool,
-    (studentSubscribedSchool) => studentSubscribedSchool.student,
-    { cascade: true },
-  )
-  subscribedSchoolList: StudentSubscribedSchool[];
+  @OneToMany(() => StudentSchool, (studentSchool) => studentSchool.student, {
+    cascade: true,
+  })
+  schoolList: StudentSchool[];
 
-  subscribeSchool(newStudentSubscribedSchool: StudentSubscribedSchool): void {
-    this.subscribedSchoolList = [...this.subscribedSchoolList, newStudentSubscribedSchool];
+  subscribeSchool(newStudentSchool: StudentSchool): StudentSchool {
+    const school = this.schoolList.find(
+      (school) => Number(school.schoolId) === newStudentSchool.schoolId,
+    );
+    if (school) {
+      school.restore();
+      return school;
+    }
+    this.schoolList = [...this.schoolList, newStudentSchool];
+    return newStudentSchool;
   }
 
   unsubscribeSchool(schoolId: number): void {
-    this.subscribedSchoolList = this.subscribedSchoolList.filter(
-      (subscribedSchool) => subscribedSchool.schoolId !== schoolId,
-    );
+    this.schoolList.forEach((school) => {
+      if (Number(school.schoolId) === schoolId) {
+        school.softDelete();
+      }
+    });
   }
 }

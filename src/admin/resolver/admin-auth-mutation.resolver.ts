@@ -11,7 +11,7 @@ import { DeleteAdminAuthArgs } from '../dto/delete-admin-auth.in';
 export class AdminAuthMutationResolver {
   constructor(private readonly adminAuthService: AdminAuthService) {}
 
-  @Mutation((returns) => [AdminAuthModel], { name: 'addAdminAuth' })
+  @Mutation((returns) => [AdminAuthModel], { name: 'addAdminAuth', nullable: 'items' })
   add(
     @CurrentUser() me: Admin,
     @Args() { authTypeList }: AddAdminAuthArgs,

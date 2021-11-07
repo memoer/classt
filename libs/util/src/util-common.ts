@@ -1,11 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import {
-  GetMsArgs,
-  GetPaginationArgs,
-  GetPaginationOutput,
-  GetSkipArgs,
-  SplitListArgs,
-} from './dto/util-common.dto';
+import { GetMsArgs, SplitListArgs } from './dto/util-common.dto';
 import { ThrowExceptionArgs } from './dto/util-fn.dto';
 import { throwException } from './util-fn';
 import * as dayjs from 'dayjs';
@@ -45,20 +39,6 @@ export class UtilCommon {
 
   throwException(args: ThrowExceptionArgs): void {
     throwException(args);
-  }
-
-  getSkip({ pageNumber, pageSize }: GetSkipArgs): number {
-    return (pageNumber - 1) * pageSize;
-  }
-
-  getPaginationOutput<T>({ dataList, count, page }: GetPaginationArgs<T>): GetPaginationOutput<T> {
-    const totalPage = Math.ceil(count / page.pageSize);
-    return {
-      dataList,
-      totalPage,
-      curPage: page.pageNumber,
-      hasNextPage: totalPage !== page.pageNumber,
-    };
   }
 
   splitList<T>({ chunk, list }: SplitListArgs<T>): T[][] {

@@ -29,15 +29,15 @@ export class PaginationInputBySkip {
   static readonly DEFAULT_PAGE_NUMBER = 1;
   static readonly DEFAULT_PAGE_SIZE = 10;
 
-  @Field(() => Int, { nullable: true, defaultValue: PaginationInputBySkip.DEFAULT_PAGE_NUMBER })
+  @Field(() => Int, { nullable: true })
   @IsNumber()
   @IsOptional()
-  pageNumber?: number;
+  pageNumber: number;
 
-  @Field(() => Int, { nullable: true, defaultValue: PaginationInputBySkip.DEFAULT_PAGE_SIZE })
+  @Field(() => Int, { nullable: true })
   @IsNumber()
   @IsOptional()
-  pageSize?: number;
+  pageSize: number;
 }
 
 @InputType()
