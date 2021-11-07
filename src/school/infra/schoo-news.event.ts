@@ -6,11 +6,11 @@ import { SchoolNewsCreatedEvent } from '../dto/school-news-created-event.in';
 
 @Injectable()
 export class SchoolNewsEvent {
-  static readonly SCHOOL_NEWS_CREATED: 'schoolNewsCreated';
+  static readonly CREATED: 'schoolNews.created';
   constructor(private readonly notificationOpenHostService: NotificationOpenHostService) {}
 
   @Transactional()
-  @OnEvent(SchoolNewsEvent.SCHOOL_NEWS_CREATED)
+  @OnEvent(SchoolNewsEvent.CREATED)
   async handleSchoolNewsCreatedEvent(payload: SchoolNewsCreatedEvent): Promise<void> {
     this.notificationOpenHostService.create(payload);
   }

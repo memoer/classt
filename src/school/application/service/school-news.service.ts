@@ -39,7 +39,7 @@ export class SchoolNewsService {
     school.addNews(newSchoolNews);
     await this.schoolRepository.save(school);
     this.eventEmitter.emit(
-      SchoolNewsEvent.SCHOOL_NEWS_CREATED,
+      SchoolNewsEvent.CREATED,
       new SchoolNewsCreatedEvent({ schoolId: school.id, schoolNewsId: newSchoolNews.id }),
     );
     return plainToClass(SchoolNews, newSchoolNews);
