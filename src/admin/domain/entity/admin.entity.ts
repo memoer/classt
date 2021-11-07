@@ -21,6 +21,7 @@ export class Admin extends BaseEntity {
       newAuthList.map((authType) => AdminAuth.createAdminAuth({ adminId: this.id, authType })),
     );
   }
+
   deleteAuth(authTypeList: AdminAuthType[]): void {
     this.authList = this.authList.filter((auth) => !authTypeList.includes(auth.type));
   }
