@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { FindOneOptions } from 'typeorm';
 import { School } from '../../domain/entity/school.entity';
 import { SchoolRepository } from '../../infra/school.repository';
 import { SchoolValidator } from './school.validator';
@@ -10,8 +11,8 @@ export class SchoolHelper {
     private readonly schoolRepository: SchoolRepository,
   ) {}
 
-  async findOneOrFail(id: number): Promise<School> {
-    const school = await this.schoolRepository.findOne(id);
+  async findOneOrFail(id: number, opts?: FindOneOptions<School>): Promise<School> {
+    const school = await this.schoolRepository.findOne(id, opts);
     this.schoolValidator.ifNotFoundThrow(school);
     return school;
   }

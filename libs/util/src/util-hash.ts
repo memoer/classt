@@ -15,7 +15,6 @@ export class UtilHash {
   }
 
   isEquals(plain: string, hash: string): Promise<boolean> {
-    console.log(plain, hash);
     return compare(plain, hash);
   }
 }

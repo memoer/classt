@@ -28,7 +28,9 @@ export class SchoolNewsService {
     schoolId,
     information,
   }: CreateSchoolNewsInput): ReturnType<SchoolNewsMutationResolver['create']> {
-    const school = await this.schoolHelper.findOneOrFail(schoolId);
+    const school = await this.schoolHelper.findOneOrFail(schoolId, {
+      relations: ['schoolNewsList'],
+    });
     const newSchoolNews = SchoolNews.createSchoolNews({ information });
     school.addNews(newSchoolNews);
     await this.schoolRepository.save(school);

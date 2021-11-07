@@ -15,7 +15,6 @@ export class AdminTypeResolver {
       // 배열이라면 -> 이미 앞에서 Query가 돌아간 것임 [ RoleGuard 에서 ]
       return plainToClass(AdminAuthModel, admin.authList);
     }
-    console.log('check');
     // undefined라면 조회해볼 것
     return this.adminAuthDAO.findMany(admin.id);
   }

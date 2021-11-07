@@ -24,7 +24,7 @@ export class SchoolNewsMutationResolver {
     return this.schoolNewsService.delete(id);
   }
 
-  @Mutation((returns) => Boolean, { name: 'updateSchoolNews' })
+  @Mutation((returns) => SchoolNewsModel, { name: 'updateSchoolNews' })
   @RoleGuardOf(AdminAuthType.UPDATE_SCHOOL_NEWS)
   update(@Args('input') input: UpdateSchoolNewsInput): Promise<SchoolNewsModel> {
     return this.schoolNewsService.update(input);
