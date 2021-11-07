@@ -4,13 +4,15 @@ import { MiddlewareConsumer, Module, NestModule, RequestMethod } from '@nestjs/c
 import { graphqlUploadExpress } from 'graphql-upload';
 import { AppResolver } from './app.resolver';
 import { AdminModule } from './admin/admin.module';
+import { SchoolModule } from './school/school.module';
 
 @Module({
   imports: [
     ConfigModule,
     UtilModule,
-    AdminModule,
     // Domain
+    AdminModule,
+    SchoolModule,
   ],
   providers: [AppResolver],
 })
