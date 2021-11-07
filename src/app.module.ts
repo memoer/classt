@@ -2,7 +2,6 @@ import { ConfigModule } from '@app/config';
 import { UtilModule } from '@app/util';
 import { MiddlewareConsumer, Module, NestModule, RequestMethod } from '@nestjs/common';
 import { graphqlUploadExpress } from 'graphql-upload';
-import { AppResolver } from './app.resolver';
 import { AdminModule } from './admin/admin.module';
 import { SchoolModule } from './school/school.module';
 import { StudentModule } from './student/student.module';
@@ -18,7 +17,6 @@ import { NotificationModule } from './notification/notification.module';
     StudentModule,
     NotificationModule,
   ],
-  providers: [AppResolver],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer): void {
