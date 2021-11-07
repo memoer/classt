@@ -1,4 +1,5 @@
 import { BaseEntity } from '@app/config';
+import { Notification } from '@app/src/notification/domain/entity/notification.entity';
 import { Column, Entity, OneToMany } from 'typeorm';
 import { StudentSchool } from './student-school.entity';
 
@@ -22,6 +23,8 @@ export class Student extends BaseEntity {
     cascade: true,
   })
   schoolList: StudentSchool[];
+  @OneToMany(() => Notification, (notification) => notification.student)
+  notificationList: Notification[];
 
   subscribeSchool(newStudentSchool: StudentSchool): StudentSchool {
     const school = this.schoolList.find(

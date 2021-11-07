@@ -6,6 +6,7 @@ import { AppResolver } from './app.resolver';
 import { AdminModule } from './admin/admin.module';
 import { SchoolModule } from './school/school.module';
 import { StudentModule } from './student/student.module';
+import { NotificationModule } from './notification/notification.module';
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { StudentModule } from './student/student.module';
     AdminModule,
     SchoolModule,
     StudentModule,
+    NotificationModule,
   ],
   providers: [AppResolver],
 })

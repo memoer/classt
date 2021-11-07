@@ -1,5 +1,6 @@
 import { BaseEntity, UpdateEntityArgs } from '@app/config';
-import { Column, Entity, JoinColumn, ManyToOne, RelationId } from 'typeorm';
+import { Notification } from '@app/src/notification/domain/entity/notification.entity';
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany, RelationId } from 'typeorm';
 import { School } from './school.entity';
 
 @Entity()
@@ -12,6 +13,8 @@ export class SchoolNews extends BaseEntity {
   @ManyToOne(() => School, (school) => school.schoolNewsList, { orphanedRowAction: 'delete' })
   @JoinColumn()
   school: School;
+  @OneToMany(() => Notification, (notification) => notification.schoolNews)
+  notificationList: Notification[];
 
   static createSchoolNews({
     information,
