@@ -1,4 +1,4 @@
-import { InputType, PartialType, PickType } from '@nestjs/graphql';
+import { InputType, PartialType } from '@nestjs/graphql';
 import { CreateStudentInput } from './create-student.in';
 
 @InputType()

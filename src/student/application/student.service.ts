@@ -1,4 +1,4 @@
-import { UtilHash, UtilHelper } from '@app/util';
+import { UtilHash } from '@app/util';
 import { GetTokenInput } from '@app/util/dto/get-token.in';
 import { UtilJwt } from '@app/util/util-jwt';
 import { UtilValidator } from '@app/util/util-validator';
@@ -20,7 +20,6 @@ export class StudentService {
     private readonly utilHash: UtilHash,
     private readonly utilJwt: UtilJwt,
     private readonly utilValidator: UtilValidator,
-    private readonly utilHepler: UtilHelper,
   ) {}
 
   @Transactional()
@@ -72,7 +71,7 @@ export class StudentService {
     return plainToClass(StudentModel, user);
   }
 
-  async getToken({ email, password }: GetTokenInput): ReturnType<UtilHelper['getToken']> {
-    return this.utilHepler.getToken(this.studentRepository, { email, password });
+  async getToken({ email, password }: GetTokenInput): ReturnType<UtilJwt['getToken']> {
+    return this.utilJwt.getToken(this.studentRepository, { email, password });
   }
 }

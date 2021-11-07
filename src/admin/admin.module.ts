@@ -1,6 +1,5 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { AdminValidator } from './application/lib/admin.validator';
 import { AdminAuthService } from './application/service/admin-auth.service';
 import { AdminService } from './application/service/admin.service';
 import { AdminAuthDAO } from './infra/admin-auth.dao';
@@ -20,7 +19,6 @@ import { AdminTypeResolver } from './resolver/admin-type.resolver';
     AdminAuthMutationResolver,
     // 응용
     AdminService,
-    AdminValidator,
     AdminAuthService,
     // 인프라
     AdminAuthDAO,

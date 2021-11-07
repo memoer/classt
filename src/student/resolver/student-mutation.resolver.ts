@@ -12,18 +12,18 @@ import { UpdateStudentInput } from '../dto/update-student.in';
 export class StudentMutationResolver {
   constructor(private readonly studentService: StudentService) {}
 
-  @Mutation((returns) => CreateStudentOutput)
+  @Mutation((returns) => CreateStudentOutput, { name: 'createStudent' })
   create(@Args('input') input: CreateStudentInput): Promise<CreateStudentOutput> {
     return this.studentService.create(input);
   }
 
-  @Mutation((returns) => Boolean)
+  @Mutation((returns) => Boolean, { name: 'deleteStudent' })
   @AuthGuardOf('STUDENT')
   delete(@CurrentUser() me: Student, @Args() { password }: DeleteStudentArgs): Promise<boolean> {
     return this.studentService.delete(me, password);
   }
 
-  @Mutation((returns) => StudentModel)
+  @Mutation((returns) => StudentModel, { name: 'updateStudent' })
   @AuthGuardOf('STUDENT')
   update(
     @CurrentUser() me: Student,

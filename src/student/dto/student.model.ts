@@ -1,16 +1,18 @@
-import { Field, ObjectType, registerEnumType } from '@nestjs/graphql';
+import { Field, Int, ObjectType, registerEnumType } from '@nestjs/graphql';
 import { Gender } from '../domain/entity/student.entity';
 
 registerEnumType(Gender, { name: 'gender' });
 
 @ObjectType()
 export class StudentModel {
-  @Field()
+  @Field((type) => Int)
+  id: number;
+  @Field((type) => String)
   name: string;
-  @Field()
+  @Field((type) => Gender)
   gender: Gender;
-  @Field()
+  @Field((type) => Date)
   birthDate: Date;
-  @Field()
+  @Field((type) => String)
   email: string;
 }
