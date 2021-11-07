@@ -3,6 +3,7 @@ export type PropertyNames<T> = {
   [K in keyof T]: T[K] extends Function ? never : K;
 }[keyof T];
 export type Properties<T> = Pick<T, PropertyNames<T>>;
-export type UpdateEntityArgs<T> = Partial<
-  Omit<Properties<T>, 'createdAt' | 'updatedAt' | 'deletedAt'>
+type DefaultOmit = 'id' | 'createdAt' | 'updatedAt' | 'deletedAt' | 'isDeleted' | 'update';
+export type UpdateEntityArgs<T, O extends keyof Omit<T, DefaultOmit>> = Partial<
+  Omit<Properties<T>, DefaultOmit | O>
 >;

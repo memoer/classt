@@ -7,7 +7,7 @@ import { SchoolModel } from '../../dto/school.model';
 import { UpdateSchoolInput } from '../../dto/update-school.in';
 import { SchoolRepository } from '../../infra/school.repository';
 import { SchoolMutationResolver } from '../../resolver/school-mutation.resolver';
-import { SchoolHepler } from '../lib/school.helper';
+import { SchoolHelper } from '../lib/school.helper';
 import { SchoolValidator } from '../lib/school.validator';
 
 @Injectable()
@@ -15,7 +15,7 @@ export class SchoolService {
   constructor(
     private readonly schoolRepository: SchoolRepository,
     private readonly schoolValidator: SchoolValidator,
-    private readonly schoolHelper: SchoolHepler,
+    private readonly schoolHelper: SchoolHelper,
   ) {}
 
   @Transactional()
@@ -34,9 +34,13 @@ export class SchoolService {
   }
 
   @Transactional()
-  async update({ id, ...rest }: UpdateSchoolInput): ReturnType<SchoolMutationResolver['update']> {
+  async update({
+    id,
+    location,
+    name,
+  }: UpdateSchoolInput): ReturnType<SchoolMutationResolver['update']> {
     const school = await this.schoolHelper.findOneOrFail(id);
-    school.update(rest);
+    school.update({ location, name });
     await this.schoolRepository.save(school);
     return plainToClass(SchoolModel, school);
   }

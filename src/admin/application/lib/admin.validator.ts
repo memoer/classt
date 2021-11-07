@@ -11,7 +11,7 @@ export class AdminValidator {
     if (!entity) {
       this.utilCommon.throwException({
         type: 'NotFoundException',
-        msg: '해당 Id는 없는 관리자 입니다.',
+        msg: `${entity.id}/없는 관리자 입니다.`,
       });
     }
   }
@@ -24,7 +24,7 @@ export class AdminValidator {
     if (!isValid) {
       this.utilCommon.throwException({
         type: 'ForbiddenException',
-        msg: '비밀번호가 틀립니다.',
+        msg: `${plainPassword}/비밀번호가 틀립니다.`,
       });
     }
   }

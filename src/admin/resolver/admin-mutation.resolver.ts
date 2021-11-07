@@ -5,7 +5,7 @@ import { Admin } from '../domain/entity/admin.entity';
 import { AdminModel } from '../dto/admin.model';
 import { CreateAdminInput } from '../dto/create-admin.in';
 import { CreateAdminOutput } from '../dto/create-admin.out';
-import { DeleteAdminInput } from '../dto/delete-admin.in';
+import { DeleteAdminArgs } from '../dto/delete-admin.in';
 import { UpdateAdminInput } from '../dto/update-admin.in';
 
 @Resolver((of) => AdminModel)
@@ -19,8 +19,8 @@ export class AdminMutationResolver {
 
   @Mutation((returns) => Boolean, { name: 'deleteAdmin' })
   @AuthGuardOf('ADMIN')
-  delete(@CurrentUser() me: Admin, @Args('input') input: DeleteAdminInput): Promise<boolean> {
-    return this.adminService.delete(me, input);
+  delete(@CurrentUser() me: Admin, @Args() { password }: DeleteAdminArgs): Promise<boolean> {
+    return this.adminService.delete(me, password);
   }
 
   @Mutation((returns) => AdminModel, { name: 'updateAdmin' })

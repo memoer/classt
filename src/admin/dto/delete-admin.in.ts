@@ -1,8 +1,8 @@
-import { Field, InputType } from '@nestjs/graphql';
+import { ArgsType, Field } from '@nestjs/graphql';
 import { IsString } from 'class-validator';
 
-@InputType()
-export class DeleteAdminInput {
+@ArgsType()
+export class DeleteAdminArgs {
   @Field((type) => String)
   @IsString()
   password: string;

@@ -18,7 +18,7 @@ export class Admin extends BaseEntity {
       (newAuthType) => !this.authList.some((auth) => auth.type === newAuthType),
     );
     this.authList = this.authList.concat(
-      newAuthList.map((authType) => AdminAuth.createAdminAuth({ adminId: this.id, authType })),
+      newAuthList.map((type) => AdminAuth.createAdminAuth({ adminId: this.id, type })),
     );
   }
 

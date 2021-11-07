@@ -4,7 +4,7 @@ import { SchoolRepository } from '../../infra/school.repository';
 import { SchoolValidator } from './school.validator';
 
 @Injectable()
-export class SchoolHepler {
+export class SchoolHelper {
   constructor(
     private readonly schoolValidator: SchoolValidator,
     private readonly schoolRepository: SchoolRepository,

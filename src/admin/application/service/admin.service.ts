@@ -6,7 +6,7 @@ import { Transactional } from 'typeorm-transactional-cls-hooked';
 import { Admin } from '../../domain/entity/admin.entity';
 import { AdminModel } from '../../dto/admin.model';
 import { CreateAdminInput } from '../../dto/create-admin.in';
-import { DeleteAdminInput } from '../../dto/delete-admin.in';
+import { DeleteAdminArgs } from '../../dto/delete-admin.in';
 import { GetAdminTokenInput } from '../../dto/get-token.in';
 import { UpdateAdminInput } from '../../dto/update-admin.in';
 import { AdminRepository } from '../../infra/admin.repository';
@@ -24,19 +24,27 @@ export class AdminService {
   ) {}
 
   @Transactional()
-  async create(input: CreateAdminInput): ReturnType<AdminMutationResolver['create']> {
+  async create({
+    email,
+    password,
+    name,
+  }: CreateAdminInput): ReturnType<AdminMutationResolver['create']> {
     const newAdminEntity = this.adminRepository.create({
-      ...input,
-      password: await this.utilHash.genHash(input.password),
+      email,
+      password: await this.utilHash.genHash(password),
+      name,
     });
     const newAdmin = await this.adminRepository.save(newAdminEntity);
     return { data: plainToClass(AdminModel, newAdmin), token: this.utilJwt.sign(newAdmin.id) };
   }
 
   @Transactional()
-  async delete(admin: Admin, input: DeleteAdminInput): ReturnType<AdminMutationResolver['delete']> {
+  async delete(
+    admin: Admin,
+    plainPassword: DeleteAdminArgs['password'],
+  ): ReturnType<AdminMutationResolver['delete']> {
     await this.adminValidator.ifWrongPasswordThrow({
-      plainPassword: input.password,
+      plainPassword,
       hashPassword: admin.password,
     });
     const result = await this.adminRepository.softDelete(admin.id);
@@ -46,13 +54,13 @@ export class AdminService {
   @Transactional()
   async update(
     admin: Admin,
-    { password, confirmPassword, ...rest }: UpdateAdminInput,
+    { email, password, confirmPassword, name }: UpdateAdminInput,
   ): ReturnType<AdminMutationResolver['update']> {
     if (password) {
       this.adminValidator.ifThereIsPasswordButWithoutConfirmPasswordThrow(confirmPassword);
       admin.password = await this.utilHash.genHash(password);
     }
-    admin.update(rest);
+    admin.update({ email, name });
     return this.adminRepository.save(admin);
   }
 
