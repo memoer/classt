@@ -6,3 +6,4 @@ export { RoleGuardOf } from './guard/role.guard';
 export { PaginationOutputInterceptor } from './interceptor/pagination-output.interceptor';
 export { GqlFileInterceptor } from './interceptor/gql-file.interceptor';
 export { VALIDATION_MSG } from './constants';
+export { PASSWORD_REGEX } from './regex';

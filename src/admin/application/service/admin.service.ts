@@ -1,5 +1,7 @@
-import { UtilHash } from '@app/util';
+import { UtilHash, UtilHelper } from '@app/util';
+import { GetTokenInput } from '@app/util/dto/get-token.in';
 import { UtilJwt } from '@app/util/util-jwt';
+import { UtilValidator } from '@app/util/util-validator';
 import { Injectable } from '@nestjs/common';
 import { plainToClass } from 'class-transformer';
 import { Transactional } from 'typeorm-transactional-cls-hooked';
@@ -7,20 +9,18 @@ import { Admin } from '../../domain/entity/admin.entity';
 import { AdminModel } from '../../dto/admin.model';
 import { CreateAdminInput } from '../../dto/create-admin.in';
 import { DeleteAdminArgs } from '../../dto/delete-admin.in';
-import { GetAdminTokenInput } from '../../dto/get-token.in';
 import { UpdateAdminInput } from '../../dto/update-admin.in';
 import { AdminRepository } from '../../infra/admin.repository';
 import { AdminMutationResolver } from '../../resolver/admin-mutation.resolver';
-import { AdminQueryResolver } from '../../resolver/admin-query.resolver';
-import { AdminValidator } from '../lib/admin.validator';
 
 @Injectable()
 export class AdminService {
   constructor(
     private readonly adminRepository: AdminRepository,
     private readonly utilHash: UtilHash,
-    private readonly adminValidator: AdminValidator,
+    private readonly utilValidator: UtilValidator,
     private readonly utilJwt: UtilJwt,
+    private readonly utilHepler: UtilHelper,
   ) {}
 
   @Transactional()
@@ -43,7 +43,7 @@ export class AdminService {
     admin: Admin,
     plainPassword: DeleteAdminArgs['password'],
   ): ReturnType<AdminMutationResolver['delete']> {
-    await this.adminValidator.ifWrongPasswordThrow({
+    await this.utilValidator.ifWrongPasswordThrow({
       plainPassword,
       hashPassword: admin.password,
     });
@@ -57,7 +57,7 @@ export class AdminService {
     { email, password, confirmPassword, name }: UpdateAdminInput,
   ): ReturnType<AdminMutationResolver['update']> {
     if (password) {
-      this.adminValidator.ifThereIsPasswordButWithoutConfirmPasswordThrow(confirmPassword);
+      this.utilValidator.ifThereIsPasswordButWithoutConfirmPasswordThrow(confirmPassword);
       admin.password = await this.utilHash.genHash(password);
     }
     admin.update({ email, name });
@@ -65,19 +65,7 @@ export class AdminService {
     return plainToClass(AdminModel, admin);
   }
 
-  async getToken({
-    email,
-    password,
-  }: GetAdminTokenInput): ReturnType<AdminQueryResolver['getToken']> {
-    const admin = await this.adminRepository.findOne({
-      select: ['id', 'password'],
-      where: { email },
-    });
-    this.adminValidator.ifNotFoundThrow(admin);
-    await this.adminValidator.ifWrongPasswordThrow({
-      plainPassword: password,
-      hashPassword: admin.password,
-    });
-    return this.utilJwt.sign(admin.id);
+  async getToken({ email, password }: GetTokenInput): ReturnType<UtilHelper['getToken']> {
+    return this.utilHepler.getToken(this.adminRepository, { email, password });
   }
 }

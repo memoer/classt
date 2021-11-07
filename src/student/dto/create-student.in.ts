@@ -1,9 +1,10 @@
 import { Match, PASSWORD_REGEX, VALIDATION_MSG } from '@app/etc';
 import { Field, InputType } from '@nestjs/graphql';
-import { IsEmail, IsString, Matches, MaxLength, MinLength } from 'class-validator';
+import { IsDate, IsEmail, IsEnum, IsString, Matches, MaxLength, MinLength } from 'class-validator';
+import { Gender } from '../domain/entity/student.entity';
 
 @InputType()
-export class CreateAdminInput {
+export class CreateStudentInput {
   @Field((type) => String)
   @IsEmail()
   email: string;
@@ -24,4 +25,10 @@ export class CreateAdminInput {
   @MinLength(2, { message: VALIDATION_MSG.MIN_LENGTH({ name: 'name', length: 2 }) })
   @MaxLength(8, { message: VALIDATION_MSG.MAX_LENGTH({ name: 'name', length: 8 }) })
   name: string;
+  @Field((type) => Gender)
+  @IsEnum(Gender)
+  gender: Gender;
+  @Field((type) => Date)
+  @IsDate()
+  birthDate: Date;
 }

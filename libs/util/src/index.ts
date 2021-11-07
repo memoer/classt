@@ -5,3 +5,4 @@ export * from './util-dao';
 export * from './util-hash';
 export * from './util.module';
 export * from './util-fn';
+export * from './util-helper';

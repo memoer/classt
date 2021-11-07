@@ -13,6 +13,7 @@ import { GqlExecutionContext } from '@nestjs/graphql';
 import { Connection } from 'typeorm';
 import { GetUserArgs } from '../dto/auth-guard.dto';
 import { ApiBearerAuthGuard } from './api-bearer-auth.guard';
+import { Student } from '@app/src/student/domain/entity/student.entity';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
@@ -33,11 +34,16 @@ export class AuthGuard implements CanActivate {
       .getOne();
   }
 
-  private async getStudent(id: number): Promise<boolean> {
-    return true;
+  private async getStudent(id: number): Promise<Student> {
+    return this.dbConn
+      .createQueryBuilder()
+      .select([])
+      .from(Student, 'student')
+      .where('student.id = :id', { id })
+      .getOne();
   }
 
-  private getUser({ id, type }: GetUserArgs): Promise<Admin | boolean> {
+  private getUser({ id, type }: GetUserArgs): Promise<Admin | Student> {
     switch (type) {
       case 'ADMIN':
         return this.getAdmin(id);
