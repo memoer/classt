@@ -1,16 +1,16 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { SchoolQueryResolver } from './school.resolver';
+import { SchoolMutationResolver } from './school.resolver';
 import { SchoolService } from './school.service';
 
-describe('SchoolQueryResolver', () => {
-  let resolver: SchoolQueryResolver;
+describe('SchoolMutationResolver', () => {
+  let resolver: SchoolMutationResolver;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [SchoolQueryResolver, SchoolService],
+      providers: [SchoolMutationResolver, SchoolService],
     }).compile();
 
-    resolver = module.get<SchoolQueryResolver>(SchoolQueryResolver);
+    resolver = module.get<SchoolMutationResolver>(SchoolMutationResolver);
   });
 
   it('should be defined', () => {

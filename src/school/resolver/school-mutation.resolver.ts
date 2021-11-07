@@ -2,6 +2,6 @@ import { Resolver } from '@nestjs/graphql';
 import { SchoolService } from '../application/school.service';
 
 @Resolver()
-export class SchoolQueryResolver {
+export class SchoolMutationResolver {
   constructor(private readonly schoolService: SchoolService) {}
 }

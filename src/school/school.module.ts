@@ -1,8 +1,8 @@
 import { Module } from '@nestjs/common';
 import { SchoolService } from './application/school.service';
-import { SchoolQueryResolver } from './resolver/school-query.resolver';
+import { SchoolMutationResolver } from './resolver/school-mutation.resolver';
 
 @Module({
-  providers: [SchoolQueryResolver, SchoolService],
+  providers: [SchoolMutationResolver, SchoolService],
 })
 export class SchoolModule {}
