@@ -13,13 +13,11 @@ export class Admin extends BaseEntity {
   @OneToMany(() => AdminAuth, (adminAuth) => adminAuth.admin, { cascade: true })
   authList: AdminAuth[];
 
-  addAuth(authTypeList: AdminAuthType[]): void {
-    const newAuthList = authTypeList.filter(
-      (newAuthType) => !this.authList.some((auth) => auth.type === newAuthType),
+  addAuth(adminAuthList: AdminAuth[]): void {
+    const newAdminAuthList = adminAuthList.filter(
+      (adminAuth) => !this.authList.some((auth) => auth.type === adminAuth.type),
     );
-    this.authList = this.authList.concat(
-      newAuthList.map((type) => AdminAuth.createAdminAuth({ adminId: this.id, type })),
-    );
+    this.authList = this.authList.concat(newAdminAuthList);
   }
 
   deleteAuth(authTypeList: AdminAuthType[]): void {

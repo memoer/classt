@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { plainToClass } from 'class-transformer';
 import { Transactional } from 'typeorm-transactional-cls-hooked';
-import { AdminAuthType } from '../../domain/entity/admin-auth.entity';
+import { AdminAuth, AdminAuthType } from '../../domain/entity/admin-auth.entity';
 import { Admin } from '../../domain/entity/admin.entity';
-import { AdminModel } from '../../dto/admin.model';
+import { AdminAuthModel } from '../../dto/admin-auth.model';
 import { AdminRepository } from '../../infra/admin.repository';
 import { AdminAuthMutationResolver } from '../../resolver/admin-auth-mutation.resolver';
 
@@ -14,20 +14,23 @@ export class AdminAuthService {
   @Transactional()
   async add(
     admin: Admin,
-    authTypeList: AdminAuthType[],
+    newAuthTypeList: AdminAuthType[],
   ): ReturnType<AdminAuthMutationResolver['add']> {
-    admin.addAuth(authTypeList);
+    const newAdminAuthList = newAuthTypeList.map((newAuthType) =>
+      AdminAuth.createAdminAuth({ type: newAuthType }),
+    );
+    admin.addAuth(newAdminAuthList);
     await this.adminRepository.save(admin);
-    return plainToClass(AdminModel, admin);
+    return plainToClass(AdminAuthModel, newAdminAuthList);
   }
 
   @Transactional()
   async delete(
     admin: Admin,
-    authTypeList: AdminAuthType[],
+    authTypeToDeleteList: AdminAuthType[],
   ): ReturnType<AdminAuthMutationResolver['delete']> {
-    admin.deleteAuth(authTypeList);
+    admin.deleteAuth(authTypeToDeleteList);
     await this.adminRepository.save(admin);
-    return plainToClass(AdminModel, admin);
+    return true;
   }
 }

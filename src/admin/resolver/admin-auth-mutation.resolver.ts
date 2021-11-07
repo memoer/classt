@@ -3,24 +3,27 @@ import { Args, Mutation, Resolver } from '@nestjs/graphql';
 import { AdminAuthService } from '../application/service/admin-auth.service';
 import { Admin } from '../domain/entity/admin.entity';
 import { AddAdminAuthArgs } from '../dto/add-admin-auth.in';
-import { AdminModel } from '../dto/admin.model';
+import { AdminAuthModel } from '../dto/admin-auth.model';
 import { DeleteAdminAuthArgs } from '../dto/delete-admin-auth.in';
 
-@Resolver((of) => AdminModel)
+@Resolver((of) => AdminAuthModel)
 @AuthGuardOf('ADMIN')
 export class AdminAuthMutationResolver {
   constructor(private readonly adminAuthService: AdminAuthService) {}
 
-  @Mutation((returns) => AdminModel, { name: 'addAdminAuth' })
-  add(@CurrentUser() me: Admin, @Args() { authTypeList }: AddAdminAuthArgs): Promise<AdminModel> {
+  @Mutation((returns) => [AdminAuthModel], { name: 'addAdminAuth' })
+  add(
+    @CurrentUser() me: Admin,
+    @Args() { authTypeList }: AddAdminAuthArgs,
+  ): Promise<AdminAuthModel[]> {
     return this.adminAuthService.add(me, authTypeList);
   }
 
-  @Mutation((returns) => AdminModel, { name: 'deleteAdminAuth' })
+  @Mutation((returns) => Boolean, { name: 'deleteAdminAuth' })
   delete(
     @CurrentUser() me: Admin,
     @Args() { authTypeList }: DeleteAdminAuthArgs,
-  ): Promise<AdminModel> {
+  ): Promise<boolean> {
     return this.adminAuthService.delete(me, authTypeList);
   }
 }
