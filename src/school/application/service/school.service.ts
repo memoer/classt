@@ -14,8 +14,8 @@ import { SchoolValidator } from '../lib/school.validator';
 export class SchoolService {
   constructor(
     private readonly schoolRepository: SchoolRepository,
-    private readonly schoolValidator: SchoolValidator,
     private readonly schoolHelper: SchoolHelper,
+    private readonly schoolValidator: SchoolValidator,
   ) {}
 
   @Transactional()
@@ -27,7 +27,7 @@ export class SchoolService {
 
   @Transactional()
   async delete(id: DeleteSchoolArgs['id']): ReturnType<SchoolMutationResolver['delete']> {
-    const school = await this.schoolRepository.findOne(id);
+    const school = await this.schoolRepository.findOne(id, { select: ['id'] });
     this.schoolValidator.ifNotFoundThrow(school);
     const result = await this.schoolRepository.softDelete(id);
     return result.affected === 1;

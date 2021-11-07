@@ -61,14 +61,18 @@ export class AdminService {
       admin.password = await this.utilHash.genHash(password);
     }
     admin.update({ email, name });
-    return this.adminRepository.save(admin);
+    await this.adminRepository.save(admin);
+    return plainToClass(AdminModel, admin);
   }
 
   async getToken({
     email,
     password,
   }: GetAdminTokenInput): ReturnType<AdminQueryResolver['getToken']> {
-    const admin = await this.adminRepository.findOne({ email });
+    const admin = await this.adminRepository.findOne({
+      select: ['id', 'password'],
+      where: { email },
+    });
     this.adminValidator.ifNotFoundThrow(admin);
     await this.adminValidator.ifWrongPasswordThrow({
       plainPassword: password,

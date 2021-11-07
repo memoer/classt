@@ -2,6 +2,7 @@ import { RoleGuardOf } from '@app/etc';
 import { AdminAuthType } from '@app/src/admin/domain/entity/admin-auth.entity';
 import { Args, Mutation, Resolver } from '@nestjs/graphql';
 import { SchoolNewsService } from '../application/service/school-news.service';
+import { SchoolNews } from '../domain/entity/school-news.entity';
 import { CreateSchoolNewsInput } from '../dto/create-school-news.in';
 import { DeleteSchoolNewsArgs } from '../dto/delete-school-news.in';
 import { SchoolNewsModel } from '../dto/school-news.model';
@@ -11,9 +12,9 @@ import { UpdateSchoolNewsInput } from '../dto/update-school.news.in';
 export class SchoolNewsMutationResolver {
   constructor(private readonly schoolNewsService: SchoolNewsService) {}
 
-  @Mutation((returns) => Boolean, { name: 'createSchoolNews' })
+  @Mutation((returns) => SchoolNewsModel, { name: 'createSchoolNews' })
   @RoleGuardOf(AdminAuthType.CREATE_SCHOOL_NEWS)
-  create(@Args('input') input: CreateSchoolNewsInput): Promise<boolean> {
+  create(@Args('input') input: CreateSchoolNewsInput): Promise<SchoolNews> {
     return this.schoolNewsService.create(input);
   }
 
@@ -25,7 +26,7 @@ export class SchoolNewsMutationResolver {
 
   @Mutation((returns) => Boolean, { name: 'updateSchoolNews' })
   @RoleGuardOf(AdminAuthType.UPDATE_SCHOOL_NEWS)
-  update(@Args('input') input: UpdateSchoolNewsInput): Promise<boolean> {
+  update(@Args('input') input: UpdateSchoolNewsInput): Promise<SchoolNewsModel> {
     return this.schoolNewsService.update(input);
   }
 }
