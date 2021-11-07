@@ -37,8 +37,9 @@ export class AuthGuard implements CanActivate {
   private async getStudent(id: number): Promise<Student> {
     return this.dbConn
       .createQueryBuilder()
-      .select(['student'])
+      .select(['student', 'subscribed_school_list'])
       .from(Student, 'student')
+      .leftJoinAndSelect('student.subscribedSchoolList', 'subscribed_school_list')
       .where('student.id = :id', { id })
       .getOne();
   }
