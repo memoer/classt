@@ -1,3 +1,5 @@
+import { PaginationInputBySkip } from '@app/config/graphql/core.dto';
+import { Notification } from '@app/src/notification/domain/entity/notification.entity';
 import { StudentSchool } from '@app/src/student/domain/entity/student-school.entity';
 import { UtilDAO } from '@app/util';
 import { Injectable } from '@nestjs/common';
@@ -16,7 +18,7 @@ export class SchoolNewsDAO {
     private readonly utilDAO: UtilDAO,
   ) {}
 
-  async findManyAndCount(
+  async getListSubscribed(
     studentId: number,
     { schoolId, ...page }: GetListSubscribedSchoolNewsInput,
   ): ReturnType<SchoolNewsQueryResolver['getListSubscribed']> {
@@ -41,5 +43,28 @@ export class SchoolNewsDAO {
       .orderBy('school_news.created_at', 'DESC')
       .getManyAndCount();
     return [plainToClass(SchoolNewsModel, dataList), totalCount];
+  }
+
+  async getListArchived(
+    studentId: number,
+    args: PaginationInputBySkip,
+  ): ReturnType<SchoolNewsQueryResolver['getListArchived']> {
+    const [dataList, totalCount] = await this.dbConn
+      .createQueryBuilder()
+      .select(['notification', 'school_news'])
+      .from(Notification, 'notification')
+      .innerJoin('notification.schoolNews', 'school_news')
+      .where('notification.student_id = :studentId', { studentId })
+      .limit(args.pageSize)
+      .skip(this.utilDAO.getSkip(args))
+      .orderBy('school_news.created_at', 'DESC')
+      .getManyAndCount();
+    return [
+      plainToClass(
+        SchoolNewsModel,
+        dataList.map((data) => data.schoolNews),
+      ),
+      totalCount,
+    ];
   }
 }

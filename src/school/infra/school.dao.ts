@@ -15,9 +15,9 @@ export class SchoolDAO {
     private readonly utilDAO: UtilDAO,
   ) {}
 
-  async findManyAndCount(
+  async getListSubscribed(
     studentId: number,
-    input: PaginationInputBySkip,
+    args: PaginationInputBySkip,
   ): ReturnType<SchoolQueryResolver['getListSubscribed']> {
     const [dataList, totalCount] = await this.dbConn
       .createQueryBuilder()
@@ -27,8 +27,8 @@ export class SchoolDAO {
       .where('student_school.student_id = :studentId', {
         studentId,
       })
-      .limit(input.pageSize)
-      .skip(this.utilDAO.getSkip(input))
+      .limit(args.pageSize)
+      .skip(this.utilDAO.getSkip(args))
       .getManyAndCount();
     return [
       plainToClass(

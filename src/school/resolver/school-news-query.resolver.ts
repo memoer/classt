@@ -1,3 +1,4 @@
+import { PaginationInputBySkip } from '@app/config/graphql/core.dto';
 import { AuthGuardOf, CurrentUser, PaginationOutputInterceptor } from '@app/etc';
 import { Student } from '@app/src/student/domain/entity/student.entity';
 import { UseInterceptors } from '@nestjs/common';
@@ -18,6 +19,15 @@ export class SchoolNewsQueryResolver {
     @CurrentUser() me: Student,
     @Args('input') input: GetListSubscribedSchoolNewsInput,
   ): Promise<[SchoolNewsModel[], number]> {
-    return this.schoolNewsDAO.findManyAndCount(me.id, input);
+    return this.schoolNewsDAO.getListSubscribed(me.id, input);
+  }
+
+  @Query((type) => GetListSubscribedSchoolNewsOutput, { name: 'getListArchivedSchoolNews' })
+  @UseInterceptors(PaginationOutputInterceptor)
+  getListArchived(
+    @CurrentUser() me: Student,
+    @Args('input') input: PaginationInputBySkip,
+  ): Promise<[SchoolNewsModel[], number]> {
+    return this.schoolNewsDAO.getListArchived(me.id, input);
   }
 }

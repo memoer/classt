@@ -6,6 +6,7 @@ import { StudentRepository } from './infra/student.repository';
 import { StudentMutationResolver } from './resolver/student-mutation.resolver';
 import { StudentQueryResolver } from './resolver/student-query.resolver';
 import { StudentSchoolMutationResolver } from './resolver/student-school-mutation.resolver';
+import { StudentSchoolDAO } from './infra/student-school.dao';
 
 @Module({
   imports: [TypeOrmModule.forFeature([StudentRepository])],
@@ -17,6 +18,8 @@ import { StudentSchoolMutationResolver } from './resolver/student-school-mutatio
     // 응용
     StudentService,
     StudentSchoolService,
+    StudentSchoolDAO,
   ],
+  exports: [StudentSchoolDAO],
 })
 export class StudentModule {}

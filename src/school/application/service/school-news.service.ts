@@ -1,11 +1,14 @@
 import { Injectable } from '@nestjs/common';
+import { EventEmitter2 } from '@nestjs/event-emitter';
 import { plainToClass } from 'class-transformer';
 import { Transactional } from 'typeorm-transactional-cls-hooked';
 import { SchoolNews } from '../../domain/entity/school-news.entity';
 import { CreateSchoolNewsInput } from '../../dto/create-school-news.in';
 import { DeleteSchoolNewsArgs } from '../../dto/delete-school-news.in';
+import { SchoolNewsCreatedEvent } from '../../dto/school-news-created-event.in';
 import { SchoolNewsModel } from '../../dto/school-news.model';
 import { UpdateSchoolNewsInput } from '../../dto/update-school.news.in';
+import { SchoolNewsEvent } from '../../infra/schoo-news.event';
 import { SchoolNewsRepository } from '../../infra/school-news.repository';
 import { SchoolRepository } from '../../infra/school.repository';
 import { SchoolNewsMutationResolver } from '../../resolver/school-news-mutation.resolver';
@@ -21,6 +24,7 @@ export class SchoolNewsService {
     private readonly schoolNewsRepository: SchoolNewsRepository,
     private readonly schoolNewsHelper: SchoolNewsHelper,
     private readonly schoolNewsValidator: SchoolNewsValidator,
+    private readonly eventEmitter: EventEmitter2,
   ) {}
 
   @Transactional()
@@ -34,6 +38,10 @@ export class SchoolNewsService {
     const newSchoolNews = SchoolNews.createSchoolNews({ information });
     school.addNews(newSchoolNews);
     await this.schoolRepository.save(school);
+    this.eventEmitter.emit(
+      SchoolNewsEvent.SCHOOL_NEWS_CREATED,
+      new SchoolNewsCreatedEvent({ schoolId: school.id, schoolNewsId: newSchoolNews.id }),
+    );
     return plainToClass(SchoolNews, newSchoolNews);
   }
 

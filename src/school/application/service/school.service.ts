@@ -19,8 +19,8 @@ export class SchoolService {
   ) {}
 
   @Transactional()
-  async create(input: CreateSchoolInput): ReturnType<SchoolMutationResolver['create']> {
-    const newSchoolEntity = this.schoolRepository.create(input);
+  async create(args: CreateSchoolInput): ReturnType<SchoolMutationResolver['create']> {
+    const newSchoolEntity = this.schoolRepository.create(args);
     const newSchool = await this.schoolRepository.save(newSchoolEntity);
     return plainToClass(SchoolModel, newSchool);
   }

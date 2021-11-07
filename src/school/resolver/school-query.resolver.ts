@@ -18,6 +18,6 @@ export class SchoolQueryResolver {
     @CurrentUser() me: Student,
     @Args('input') input: PaginationInputBySkip,
   ): Promise<[SchoolModel[], number]> {
-    return this.schoolDAO.findManyAndCount(me.id, input);
+    return this.schoolDAO.getListSubscribed(me.id, input);
   }
 }

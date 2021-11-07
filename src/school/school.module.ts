@@ -1,11 +1,13 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { NotificationModule } from '../notification/notification.module';
 import { SchoolNewsHelper } from './application/lib/school-news.helper';
 import { SchoolNewsValidator } from './application/lib/school-news.validator';
 import { SchoolHelper } from './application/lib/school.helper';
 import { SchoolValidator } from './application/lib/school.validator';
 import { SchoolNewsService } from './application/service/school-news.service';
 import { SchoolService } from './application/service/school.service';
+import { SchoolNewsEvent } from './infra/schoo-news.event';
 import { SchoolNewsDAO } from './infra/school-news.dao';
 import { SchoolNewsRepository } from './infra/school-news.repository';
 import { SchoolDAO } from './infra/school.dao';
@@ -16,7 +18,7 @@ import { SchoolNewsQueryResolver } from './resolver/school-news-query.resolver';
 import { SchoolQueryResolver } from './resolver/school-query.resolver';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([SchoolRepository, SchoolNewsRepository])],
+  imports: [TypeOrmModule.forFeature([SchoolRepository, SchoolNewsRepository]), NotificationModule],
   providers: [
     // 표현
     SchoolMutationResolver,
@@ -33,6 +35,7 @@ import { SchoolQueryResolver } from './resolver/school-query.resolver';
     // 인프라
     SchoolNewsDAO,
     SchoolDAO,
+    SchoolNewsEvent,
   ],
 })
 export class SchoolModule {}
