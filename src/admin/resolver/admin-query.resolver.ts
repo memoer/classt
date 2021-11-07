@@ -4,7 +4,7 @@ import { plainToClass } from 'class-transformer';
 import { AdminService } from '../application/service/admin.service';
 import { Admin } from '../domain/entity/admin.entity';
 import { AdminModel } from '../dto/admin.model';
-import { GetAdminTokenInput } from '../dto/get-token.input';
+import { GetAdminTokenInput } from '../dto/get-token.in';
 
 @Resolver((of) => AdminModel)
 export class AdminQueryResolver {

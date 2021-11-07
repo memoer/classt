@@ -49,8 +49,12 @@ export class AuthGuard implements CanActivate {
   }
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
-    const type = this.reflector.get<keyof typeof AuthGuard.TYPE>('type', context.getHandler());
+    const type = this.reflector.getAllAndOverride<keyof typeof AuthGuard.TYPE>('type', [
+      context.getHandler(),
+      context.getClass(),
+    ]);
     const ctx = GqlExecutionContext.create(context).getContext<GqlCtx>();
+    console.log(type);
     if (ctx.req.user.id) {
       const user = await this.getUser({ id: ctx.req.user.id, type });
       if (!user) return false;

@@ -3,10 +3,10 @@ import { Args, Mutation, Resolver } from '@nestjs/graphql';
 import { AdminService } from '../application/service/admin.service';
 import { Admin } from '../domain/entity/admin.entity';
 import { AdminModel } from '../dto/admin.model';
-import { CreateAdminInput } from '../dto/create-admin.input';
-import { CreateAdminOutput } from '../dto/create-admin.output';
-import { DeleteAdminInput } from '../dto/delete-admin.input';
-import { UpdateAdminInput } from '../dto/update-admin.input';
+import { CreateAdminInput } from '../dto/create-admin.in';
+import { CreateAdminOutput } from '../dto/create-admin.out';
+import { DeleteAdminInput } from '../dto/delete-admin.in';
+import { UpdateAdminInput } from '../dto/update-admin.in';
 
 @Resolver((of) => AdminModel)
 export class AdminMutationResolver {
