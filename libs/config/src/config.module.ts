@@ -7,6 +7,6 @@ import { EventModule } from './event/event.module';
 import { AwsModule } from './aws/aws.module';
 
 @Module({
-  imports: [AwsModule, CacheModule, DatabaseModule, EnvModule, EventModule, GraphqlModule],
+  imports: [AwsModule, CacheModule, EnvModule, EventModule, GraphqlModule, DatabaseModule],
 })
 export class ConfigModule {}
