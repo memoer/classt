@@ -12,7 +12,7 @@ import {
 import { Reflector } from '@nestjs/core';
 import { GqlExecutionContext } from '@nestjs/graphql';
 import { ApiBearerAuthGuard } from './api-bearer-auth.guard';
-import { AuthGuardOf } from './auth.guard';
+import { AuthGuard } from './auth.guard';
 
 @Injectable()
 export class RoleGuard implements CanActivate {
@@ -27,7 +27,8 @@ export class RoleGuard implements CanActivate {
 
 export function RoleGuardOf(...auth: AdminAuthType[]): ReturnType<typeof applyDecorators> {
   return applyDecorators(
+    SetMetadata<'type', keyof typeof AuthGuard.TYPE>('type', 'ADMIN'),
     SetMetadata('auth', auth),
-    UseGuards(ApiBearerAuthGuard, AuthGuardOf('ADMIN'), RoleGuard),
+    UseGuards(ApiBearerAuthGuard, AuthGuard, RoleGuard),
   );
 }

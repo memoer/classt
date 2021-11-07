@@ -1,5 +1,5 @@
 import { Field, InputType } from '@nestjs/graphql';
-import { IsEmail } from 'class-validator';
+import { IsEmail, IsString } from 'class-validator';
 
 @InputType()
 export class GetAdminTokenInput {
@@ -7,5 +7,6 @@ export class GetAdminTokenInput {
   @IsEmail()
   email: string;
   @Field((type) => String)
+  @IsString()
   password: string;
 }

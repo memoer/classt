@@ -54,7 +54,6 @@ export class AuthGuard implements CanActivate {
       context.getClass(),
     ]);
     const ctx = GqlExecutionContext.create(context).getContext<GqlCtx>();
-    console.log(type);
     if (ctx.req.user.id) {
       const user = await this.getUser({ id: ctx.req.user.id, type });
       if (!user) return false;
