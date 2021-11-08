@@ -77,7 +77,13 @@ export const deleteE2ETest = (apiBuilder: ApiTestBuilder): void =>
     );
     it(testDescription('mutation', '회원탈퇴했던 학생을 복구시킬 수 있어야 한다.'), () =>
       apiBuilder
-        .query('mutation', `restoreStudent(id:${apiBuilder.getStudent().id})`)
+        .query(
+          'mutation',
+          `restoreStudent(input:{
+            id:${apiBuilder.getStudent().id},
+            password:"${apiBuilder.getStudent().password}"}
+          )`,
+        )
         .sendGql()
         .expect(200)
         .expect((res) => {
