@@ -6,7 +6,7 @@ import { SchoolHelper } from './application/lib/school.helper';
 import { SchoolValidator } from './application/lib/school.validator';
 import { SchoolNewsService } from './application/service/school-news.service';
 import { SchoolService } from './application/service/school.service';
-import { SchoolNewsEvent } from './infra/schoo-news.event';
+import { SchoolNewsEvent } from './infra/school-news.event';
 import { SchoolNewsDAO } from './infra/school-news.dao';
 import { SchoolNewsRepository } from './infra/school-news.repository';
 import { SchoolDAO } from './infra/school.dao';

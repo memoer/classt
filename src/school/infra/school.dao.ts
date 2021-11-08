@@ -24,7 +24,7 @@ export class SchoolDAO {
       .select(['student_school', 'school'])
       .from(StudentSchool, 'student_school')
       .innerJoin('student_school.school', 'school')
-      .where('student_school.student_id = :studentId', {
+      .where('student_school.studentId = :studentId', {
         studentId,
       })
       .limit(args.pageSize)

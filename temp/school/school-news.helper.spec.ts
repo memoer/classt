@@ -3,7 +3,7 @@ import { SchoolNewsHelper } from '@app/src/school/application/lib/school-news.he
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { SchoolNewsRepository } from '@app/src/school/infra/school-news.repository';
 import { UtilValidator } from '@app/util';
-import { mockRepository, mockUtilValidatorValue } from '../../common/mock';
+import { mockRepositoryValue, mockUtilValidatorValue } from '../../mock/function';
 
 describe('SchoolNewsHelper', () => {
   let service: SchoolNewsHelper;

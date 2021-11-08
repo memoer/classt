@@ -27,7 +27,7 @@ export class SchoolNewsDAO {
       .select(['school.id AS "sId"'])
       .from(StudentSchool, 'student_school')
       .innerJoin('student_school.school', 'school')
-      .where('student_school.student_id = :studentId AND student_school.school_id = :schoolId', {
+      .where('student_school.studentId = :studentId AND student_school.schoolId = :schoolId', {
         studentId,
         schoolId,
       })
@@ -37,10 +37,10 @@ export class SchoolNewsDAO {
       .createQueryBuilder()
       .select(['school_news'])
       .from(SchoolNews, 'school_news')
-      .where('school_news.school_id = :schoolId', { schoolId: result.sId })
+      .where('school_news.schoolId = :schoolId', { schoolId: result.sId })
       .limit(page.pageSize)
       .skip(this.utilDAO.getSkip(page))
-      .orderBy('school_news.created_at', 'DESC')
+      .orderBy('school_news.createdAt', 'DESC')
       .getManyAndCount();
     return [plainToClass(SchoolNewsModel, dataList), totalCount];
   }
@@ -54,10 +54,10 @@ export class SchoolNewsDAO {
       .select(['notification', 'school_news'])
       .from(Notification, 'notification')
       .innerJoin('notification.schoolNews', 'school_news')
-      .where('notification.student_id = :studentId', { studentId })
+      .where('notification.studentId = :studentId', { studentId })
       .limit(args.pageSize)
       .skip(this.utilDAO.getSkip(args))
-      .orderBy('school_news.created_at', 'DESC')
+      .orderBy('school_news.createdAt', 'DESC')
       .getManyAndCount();
     return [
       plainToClass(

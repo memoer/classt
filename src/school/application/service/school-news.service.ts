@@ -9,7 +9,7 @@ import { DeleteSchoolNewsArgs } from '../../dto/delete-school-news.in';
 import { SchoolNewsCreatedEvent } from '../../dto/school-news-created-event.in';
 import { SchoolNewsModel } from '../../dto/school-news.model';
 import { UpdateSchoolNewsInput } from '../../dto/update-school.news.in';
-import { SchoolNewsEvent } from '../../infra/schoo-news.event';
+import { SchoolNewsEvent } from '../../infra/school-news.event';
 import { SchoolNewsRepository } from '../../infra/school-news.repository';
 import { SchoolRepository } from '../../infra/school.repository';
 import { SchoolNewsMutationResolver } from '../../resolver/school-news-mutation.resolver';

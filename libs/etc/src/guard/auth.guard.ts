@@ -42,7 +42,7 @@ export class AuthGuard implements CanActivate {
       .withDeleted()
       .leftJoin('student.schoolList', 'student_school')
       .where('student.id = :id', { id })
-      .andWhere('student.deleted_at IS NULL')
+      .andWhere('student.deletedAt IS NULL')
       .getOne();
   }
 

@@ -13,7 +13,7 @@ export class NotificationOpenHostService {
   async create({ schoolId, schoolNewsId }: SchoolNewsCreatedEvent): Promise<void> {
     const studentSchoolList = await this.studentSchoolDAO.findManyBySchoolId({
       schoolId,
-      select: ['student_id'],
+      select: ['studentId'],
     });
     await this.notificationRepository.insert(
       studentSchoolList.map(({ studentId }) => ({ studentId, schoolNewsId })),

@@ -39,7 +39,7 @@ describe('NotificationOpenHostService', () => {
     await notificationOpenHostService.create(input);
     expect(mockStudentSchoolDAO.findManyBySchoolId).toHaveBeenNthCalledWith(1, {
       schoolId: input.schoolId,
-      select: ['student_id'],
+      select: ['studentId'],
     });
     expect(mockNoitifcaitonRepository.insert).toHaveBeenNthCalledWith(
       1,

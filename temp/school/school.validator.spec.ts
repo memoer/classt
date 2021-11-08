@@ -3,7 +3,7 @@ import { SchoolValidator } from '@app/src/school/application/lib/school.validato
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { SchoolRepository } from '@app/src/school/infra/school.repository';
 import { UtilCommon } from '@app/util';
-import { mockRepository, mockUtilCommonValue } from '../../common/mock';
+import { mockRepositoryValue, mockUtilCommonValue } from '../../mock/function';
 
 describe('SchoolValidator', () => {
   let service: SchoolValidator;
