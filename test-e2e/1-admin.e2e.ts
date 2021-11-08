@@ -123,8 +123,8 @@ export const adminE2ETest = (apiBuilder: ApiTestBuilder): void =>
         .sendGql()
         .expect(200)
         .expect((res) => {
-          const result = getDataFromBody<boolean>(res, 'deleteAdminAuth');
-          expect(result).toEqual(expect.any(Boolean));
+          const isSuccess = getDataFromBody<boolean>(res, 'deleteAdminAuth');
+          expect(isSuccess).toEqual(true);
         }),
     );
   });

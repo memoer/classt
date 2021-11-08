@@ -72,6 +72,10 @@ export class StudentService {
   }
 
   async getToken({ email, password }: GetTokenInput): ReturnType<UtilJwt['getToken']> {
-    return this.utilJwt.getToken(this.studentRepository, { email, password });
+    return this.utilJwt.getToken(this.studentRepository, {
+      email,
+      password,
+      errorMsg: `${email}/존재하지 않는 학생입니다.`,
+    });
   }
 }

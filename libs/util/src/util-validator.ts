@@ -46,7 +46,7 @@ export class UtilValidator {
     if (!entity) {
       this.utilCommon.throwException({
         type: 'NotFoundException',
-        msg: `${entity.id}/${errorMsg}`,
+        msg: errorMsg,
       });
     }
   }

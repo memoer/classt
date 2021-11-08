@@ -10,8 +10,8 @@ export const deleteE2ETest = (apiBuilder: ApiTestBuilder): void =>
         .sendGql()
         .expect(200)
         .expect((res) => {
-          const result = getDataFromBody<boolean>(res, 'deleteAdmin');
-          expect(result).toEqual(true);
+          const isSuccess = getDataFromBody<boolean>(res, 'deleteAdmin');
+          expect(isSuccess).toEqual(true);
         }),
     );
     it(testDescription('mutation', '탈퇴된 관리자를 복구시킬 수 있어야 한다.'), () =>
@@ -20,9 +20,38 @@ export const deleteE2ETest = (apiBuilder: ApiTestBuilder): void =>
         .sendGql()
         .expect(200)
         .expect((res) => {
-          const result = getDataFromBody<boolean>(res, 'restoreAdmin');
-          expect(result).toEqual(true);
+          const isSuccess = getDataFromBody<boolean>(res, 'restoreAdmin');
+          expect(isSuccess).toEqual(true);
         }),
+    );
+    it(
+      testDescription(
+        'mutation',
+        '권한이 있는 관리자는 작성된 학교의 소식을 수정할 수 있어야 한다.',
+      ),
+      () =>
+        apiBuilder
+          .query('mutation', `deleteSchoolNews(id:${apiBuilder.getSchoolNewsId()})`)
+          .includeToken('admin')
+          .sendGql()
+          .expect(200)
+          .expect((res) => {
+            const isSuccess = getDataFromBody<boolean>(res, 'deleteSchoolNews');
+            expect(isSuccess).toEqual(true);
+          }),
+    );
+    it(
+      testDescription('mutation', '학생은 구독 중인 학교 페이지를 구독 취소할 수 있어야 한다.'),
+      () =>
+        apiBuilder
+          .query('mutation', `unsubscribeSchool(schoolId:${apiBuilder.getSchoolId()})`)
+          .includeToken('student')
+          .sendGql()
+          .expect(200)
+          .expect((res) => {
+            const isSuccess = getDataFromBody<boolean>(res, 'unsubscribeSchool');
+            expect(isSuccess).toEqual(true);
+          }),
     );
     it(testDescription('mutation', '권한이 있는 관리자는 학교를 제거할 수 있어야 한다.'), () =>
       apiBuilder
@@ -31,22 +60,9 @@ export const deleteE2ETest = (apiBuilder: ApiTestBuilder): void =>
         .sendGql()
         .expect(200)
         .expect((res) => {
-          const result = getDataFromBody<boolean>(res, 'deleteSchool');
-          expect(result).toEqual(true);
+          const isSuccess = getDataFromBody<boolean>(res, 'deleteSchool');
+          expect(isSuccess).toEqual(true);
         }),
-    );
-    it(
-      testDescription('mutation', '권한이 있는 관리자는 학교의 소식을 제거할 수 있어야 한다.'),
-      () =>
-        apiBuilder
-          .query('mutation', `deleteSchoolNews(id:${apiBuilder.getSchoolNewsId()})`)
-          .includeToken('admin')
-          .sendGql()
-          .expect(200)
-          .expect((res) => {
-            const result = getDataFromBody<boolean>(res, 'deleteSchoolNews');
-            expect(result).toEqual(true);
-          }),
     );
     it(testDescription('mutation', '학생은 회원탈퇴를 할 수 있어야 한다.'), () =>
       apiBuilder
@@ -55,8 +71,8 @@ export const deleteE2ETest = (apiBuilder: ApiTestBuilder): void =>
         .sendGql()
         .expect(200)
         .expect((res) => {
-          const result = getDataFromBody<boolean>(res, 'deleteStudent');
-          expect(result).toEqual(true);
+          const isSuccess = getDataFromBody<boolean>(res, 'deleteStudent');
+          expect(isSuccess).toEqual(true);
         }),
     );
   });

@@ -9,4 +9,5 @@ export class GetTokenInput {
   @Field((type) => String)
   @IsString()
   password: string;
+  errorMsg: string;
 }

@@ -71,7 +71,11 @@ export class AdminService {
   }
 
   async getToken({ email, password }: GetTokenInput): ReturnType<UtilJwt['getToken']> {
-    return this.utilJwt.getToken(this.adminRepository, { email, password });
+    return this.utilJwt.getToken(this.adminRepository, {
+      email,
+      password,
+      errorMsg: `${email}/존재하지 않는 관리자입니다.`,
+    });
   }
 
   @Transactional()

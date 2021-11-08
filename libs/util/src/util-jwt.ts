@@ -18,13 +18,13 @@ export class UtilJwt {
 
   async getToken(
     repository: BaseRepository<{ id: number; password: string }>,
-    { email, password }: GetTokenInput,
+    { email, password, errorMsg }: GetTokenInput,
   ): Promise<string> {
     const admin = await repository.findOne({
       select: ['id', 'password'],
       where: { email },
     });
-    this.utilValidator.ifNotFoundThrow({ entity: admin, errorMsg: '없는 관리자입니다.' });
+    this.utilValidator.ifNotFoundThrow({ entity: admin, errorMsg });
     await this.utilValidator.ifWrongPasswordThrow({
       plainPassword: password,
       hashPassword: admin.password,
