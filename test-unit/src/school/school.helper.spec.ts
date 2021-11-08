@@ -1,29 +1,23 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { SchoolService } from '@app/src/school/application/service/school.service';
 import { SchoolHelper } from '@app/src/school/application/lib/school.helper';
-import { SchoolValidator } from '@app/src/school/application/lib/school.validator';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { SchoolRepository } from '@app/src/school/infra/school.repository';
 import { UtilValidator } from '@app/util';
 import { mockRepository, mockUtilValidator } from '../../common/mock';
 
-describe('SchoolService', () => {
-  let service: SchoolService;
-  const mockSchoolHelper = {};
-  const mockSchoolValidator = {};
+describe('SchoolHelper', () => {
+  let service: SchoolHelper;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
-        SchoolService,
+        SchoolHelper,
         { provide: getRepositoryToken(SchoolRepository), useValue: mockRepository() },
-        { provide: SchoolHelper, useValue: mockSchoolHelper },
         { provide: UtilValidator, useValue: mockUtilValidator() },
-        { provide: SchoolValidator, useValue: mockSchoolValidator },
       ],
     }).compile();
 
-    service = module.get<SchoolService>(SchoolService);
+    service = module.get<SchoolHelper>(SchoolHelper);
   });
 
   it('should be defined', () => {

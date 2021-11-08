@@ -10,9 +10,9 @@ import {
 } from '@nestjs/common';
 import { graphqlUploadExpress } from 'graphql-upload';
 import { AdminModule } from './admin/admin.module';
+import { NotificationModule } from './notification/notification.module';
 import { SchoolModule } from './school/school.module';
 import { StudentModule } from './student/student.module';
-import { NotificationModule } from './notification/notification.module';
 
 @Module({
   imports: [
@@ -20,9 +20,9 @@ import { NotificationModule } from './notification/notification.module';
     UtilModule,
     // Domain
     AdminModule,
+    NotificationModule,
     SchoolModule,
     StudentModule,
-    NotificationModule,
   ],
 })
 export class AppModule implements NestModule, OnModuleInit {
