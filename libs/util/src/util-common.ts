@@ -3,7 +3,6 @@ import { GetMsArgs, SplitListArgs } from './dto/util-common.dto';
 import { ThrowExceptionArgs } from './dto/util-fn.dto';
 import { throwException } from './util-fn';
 import * as dayjs from 'dayjs';
-import { ApolloError } from 'apollo-server-core';
 
 // * 기본 유틸성 서비스
 @Injectable()

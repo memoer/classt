@@ -2,7 +2,7 @@ import { UtilHash } from '@app/util';
 import { GetTokenInput } from '@app/util/dto/get-token.in';
 import { UtilJwt } from '@app/util/util-jwt';
 import { UtilValidator } from '@app/util/util-validator';
-import { Injectable } from '@nestjs/common';
+import { ConflictException, Injectable } from '@nestjs/common';
 import { plainToClass } from 'class-transformer';
 import { Transactional } from 'typeorm-transactional-cls-hooked';
 import { Admin } from '../../domain/entity/admin.entity';

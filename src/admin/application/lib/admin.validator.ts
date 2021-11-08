@@ -17,5 +17,6 @@ export class AdminValidator {
         msg: `${email}/사용하고 있는 이메일입니다.`,
       });
     }
+    console.log('2');
   }
 }
