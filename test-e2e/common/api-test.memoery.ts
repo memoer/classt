@@ -1,3 +1,4 @@
+import { Gender } from '@app/src/student/domain/entity/student.entity';
 import { INestApplication } from '@nestjs/common';
 
 export type UserType = 'admin' | 'student';
@@ -9,8 +10,13 @@ interface TestData {
 interface User {
   id: number;
   token: string;
+  name: string;
   email: string;
   password: string;
+}
+interface Student extends User {
+  gender: Gender;
+  birthDate: string;
 }
 
 export class ApiTestSpace {
@@ -18,30 +24,46 @@ export class ApiTestSpace {
   protected testData: TestData;
   protected admin = {
     id: 0,
-    token: '',
+    name: '',
     email: '',
     password: '',
+    token: '',
   };
   protected student = {
     id: 0,
-    token: '',
+    name: '',
     email: '',
     password: '',
+    gender: Gender.FEMALE,
+    birthDate: '',
+    token: '',
   };
   protected schoolId = 0;
   protected schoolNewsId = 0;
   setApp(app: INestApplication): void {
     this.app = app;
   }
-  setUser(type: UserType, { id, token, email, password }: Partial<User>): void {
+  private setUser(type: UserType, { id, token, name, email, password }: Partial<User>): void {
     const key = type;
     if (id !== undefined) this[key].id = id;
+    if (name) this[key].name = name;
     if (token) this[key].token = token;
     if (email) this[key].email = email;
     if (password) this[key].password = password;
   }
-  getUser(type: UserType): User {
-    return type === 'admin' ? this.admin : this.student;
+  setAdmin(args: Partial<User>): void {
+    this.setUser('admin', args);
+  }
+  setStudent({ gender, birthDate, ...rest }: Partial<Student>): void {
+    this.setUser('student', rest);
+    if (gender) this.student.gender = gender;
+    if (birthDate) this.student.birthDate = birthDate;
+  }
+  getAdmin(): User {
+    return this.admin;
+  }
+  getStudent(): Student {
+    return this.student;
   }
   setSchoolId(id: number): void {
     this.schoolId = id;

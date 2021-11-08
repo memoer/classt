@@ -24,7 +24,7 @@ export const adminE2ETest = (apiBuilder: ApiTestBuilder): void =>
         .expect((res) => {
           const { data, token } = getDataFromBody<CreateAdminOutput>(res, 'createAdmin');
           const { id, email, name, authList } = data as AdminModelWithResolveType;
-          apiBuilder.setUser('admin', { id, token, email, password: 'qwert12345#' });
+          apiBuilder.setAdmin({ id, token, name, email, password: 'qwert12345#' });
           expect(token).toEqual(expect.any(String));
           expect(id).toEqual(expect.any(Number));
           expect(email).toEqual('test@naver.com');
@@ -36,15 +36,15 @@ export const adminE2ETest = (apiBuilder: ApiTestBuilder): void =>
       apiBuilder
         .query(
           'query',
-          `getAdminToken(input:{email:"${apiBuilder.getUser('admin').email}", password:"${
-            apiBuilder.getUser('admin').password
+          `getAdminToken(input:{email:"${apiBuilder.getAdmin().email}", password:"${
+            apiBuilder.getAdmin().password
           }"})`,
         )
         .sendGql()
         .expect(200)
         .expect((res) => {
           const token = getDataFromBody<string>(res, 'getAdminToken');
-          apiBuilder.setUser('admin', { token });
+          apiBuilder.setAdmin({ token });
           expect(token).toEqual(expect.any(String));
         }),
     );
@@ -61,7 +61,11 @@ export const adminE2ETest = (apiBuilder: ApiTestBuilder): void =>
         .expect(200)
         .expect((res) => {
           const { id, email, name } = getDataFromBody<AdminModel>(res, 'updateAdmin');
-          apiBuilder.setUser('admin', { email: 'test@google.com', password: 'q1w2e3r4t5y6#' });
+          apiBuilder.setAdmin({
+            name,
+            email: 'test@google.com',
+            password: 'q1w2e3r4t5y6#',
+          });
           expect(id).toEqual(expect.any(Number));
           expect(email).toEqual('test@google.com');
           expect(name).toEqual('zxc');
@@ -74,7 +78,6 @@ export const adminE2ETest = (apiBuilder: ApiTestBuilder): void =>
           `getMyAdminInfo {
             id, email, name,
             authList { id, type }
-
           }`,
         )
         .includeToken('admin')
@@ -85,9 +88,10 @@ export const adminE2ETest = (apiBuilder: ApiTestBuilder): void =>
             res,
             'getMyAdminInfo',
           );
-          expect(id).toEqual(expect.any(Number));
-          expect(email).toEqual(apiBuilder.getUser('admin').email);
-          expect(name).toEqual(expect.any(String));
+          const curAdmin = apiBuilder.getAdmin();
+          expect(id).toEqual(curAdmin.id);
+          expect(email).toEqual(curAdmin.email);
+          expect(name).toEqual(curAdmin.name);
           expect(authList).toEqual([]);
         }),
     );

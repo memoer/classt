@@ -5,7 +5,7 @@ export const deleteE2ETest = (apiBuilder: ApiTestBuilder): void =>
   describe('NotificationResolver [E2E]', () => {
     it(testDescription('mutation', '관리자의 아이디를 탈퇴할 수 있어야 한다.'), () =>
       apiBuilder
-        .query('mutation', `deleteAdmin(password:"${apiBuilder.getUser('admin').password}")`)
+        .query('mutation', `deleteAdmin(password:"${apiBuilder.getAdmin().password}")`)
         .includeToken('admin')
         .sendGql()
         .expect(200)
@@ -16,7 +16,7 @@ export const deleteE2ETest = (apiBuilder: ApiTestBuilder): void =>
     );
     it(testDescription('mutation', '탈퇴된 관리자를 복구시킬 수 있어야 한다.'), () =>
       apiBuilder
-        .query('mutation', `restoreAdmin(id:${apiBuilder.getUser('admin').id})`)
+        .query('mutation', `restoreAdmin(id:${apiBuilder.getAdmin().id})`)
         .sendGql()
         .expect(200)
         .expect((res) => {
@@ -47,5 +47,16 @@ export const deleteE2ETest = (apiBuilder: ApiTestBuilder): void =>
             const result = getDataFromBody<boolean>(res, 'deleteSchoolNews');
             expect(result).toEqual(true);
           }),
+    );
+    it(testDescription('mutation', '학생은 회원탈퇴를 할 수 있어야 한다.'), () =>
+      apiBuilder
+        .query('mutation', `deleteStudent(password:"${apiBuilder.getStudent().password}")`)
+        .includeToken('student')
+        .sendGql()
+        .expect(200)
+        .expect((res) => {
+          const result = getDataFromBody<boolean>(res, 'deleteStudent');
+          expect(result).toEqual(true);
+        }),
     );
   });

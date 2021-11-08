@@ -5,8 +5,8 @@ export const clearTestData = async (apiBuilder: ApiTestBuilder): Promise<void> =
     { id: apiBuilder.getSchoolNewsId(), name: 'school_news' },
     { id: apiBuilder.getSchoolId(), name: 'school' },
     { name: 'admin_auth' },
-    { id: apiBuilder.getUser('admin').id, name: 'admin' },
-    { id: apiBuilder.getUser('student').id, name: 'student' },
+    { id: apiBuilder.getAdmin().id, name: 'admin' },
+    { id: apiBuilder.getStudent().id, name: 'student' },
   ];
   const promiseList = tableList.map(({ name, id }) => {
     const qb = getConnection().createQueryBuilder().delete().from(name);
