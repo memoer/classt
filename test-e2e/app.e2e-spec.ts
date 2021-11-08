@@ -1,21 +1,21 @@
-import { Test, TestingModule } from '@nestjs/testing';
+import { AppModule } from '@app/src/app.module';
 import { INestApplication } from '@nestjs/common';
-import * as request from 'supertest';
-import { AppModule } from '../src/app.module';
+import { Test, TestingModule } from '@nestjs/testing';
+import { ApiTestBuilder } from './common/api-test.builder';
 
-describe('AppController (e2e)', () => {
-  let app: INestApplication;
-
-  beforeEach(async () => {
-    const moduleFixture: TestingModule = await Test.createTestingModule({
+function startTest(): void {
+  let nestApp: INestApplication;
+  // ! initialize
+  beforeAll(async () => {
+    const module: TestingModule = await Test.createTestingModule({
       imports: [AppModule],
     }).compile();
 
-    app = moduleFixture.createNestApplication();
-    await app.init();
+    nestApp = module.createNestApplication();
+    await nestApp.init();
+    const apiBuilder = new ApiTestBuilder(nestApp);
   });
+  // ! start test
+}
 
-  it('/ (GET)', () => {
-    return request(app.getHttpServer()).get('/').expect(200).expect('Hello World!');
-  });
-});
+startTest();
