@@ -3,7 +3,7 @@ import { SchoolValidator } from '@app/src/school/application/lib/school.validato
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { SchoolRepository } from '@app/src/school/infra/school.repository';
 import { UtilCommon } from '@app/util';
-import { mockRepository, mockUtilCommon } from '../../common/mock';
+import { mockRepository, mockUtilCommonValue } from '../../common/mock';
 
 describe('SchoolValidator', () => {
   let service: SchoolValidator;
@@ -13,7 +13,7 @@ describe('SchoolValidator', () => {
       providers: [
         SchoolValidator,
         { provide: getRepositoryToken(SchoolRepository), useValue: mockRepository() },
-        { provide: UtilCommon, useValue: mockUtilCommon() },
+        { provide: UtilCommon, useValue: mockUtilCommonValue() },
       ],
     }).compile();
 

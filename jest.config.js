@@ -10,7 +10,6 @@ module.exports = {
     '^@app/config(|/.*)$': '<rootDir>/libs/config/src/$1',
     '^@app/etc(|/.*)$': '<rootDir>/libs/etc/src/$1',
     '^@app/util(|/.*)$': '<rootDir>/libs/util/src/$1',
-    '^@common(|/.*)$': '<rootDir>/test-unit/common/$1',
   },
   // An array of file extensions your modules use
   moduleFileExtensions: ['js', 'json', 'ts'],
@@ -38,4 +37,6 @@ module.exports = {
   },
   // Indicates whether each individual test should be reported during the run
   verbose: false,
+  // The paths to modules that run some code to configure or set up the testing environment before each test
+  setupFiles: ['./test-unit/set-up.ts'],
 };
