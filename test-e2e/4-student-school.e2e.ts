@@ -7,7 +7,7 @@ import { PaginationOutput } from './common/common.interface';
 import { getDataFromBody, getErrorFromBody, testDescription } from './common/fn';
 
 export const studentSchoolE2ETest = (apiBuilder: ApiTestBuilder): void =>
-  describe('StudentSchoolResolver [E2E]', () => {
+  describe('[E2E] StudentSchoolResolver', () => {
     it(testDescription('mutation', '학생은 학교 페이지를 구독할 수 있어야 한다.'), () =>
       apiBuilder
         .query(

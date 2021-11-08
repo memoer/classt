@@ -2,7 +2,7 @@ import { ApiTestBuilder } from './common/api-test.builder';
 import { getDataFromBody, testDescription } from './common/fn';
 
 export const notificationE2ETest = (apiBuilder: ApiTestBuilder): void =>
-  describe('NotificationResolver [E2E]', () => {
+  describe('[E2E] NotificationResolver', () => {
     it(
       testDescription(
         'mutation',

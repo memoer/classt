@@ -4,7 +4,7 @@ import { ApiTestBuilder } from './common/api-test.builder';
 import { getDataFromBody, testDescription } from './common/fn';
 
 export const studentE2ETest = (apiBuilder: ApiTestBuilder): void =>
-  describe('StudentResolver [E2E]', () => {
+  describe('[E2E] StudentResolver', () => {
     it(testDescription('mutation', '학생을 만들 수 있어야 한다.'), () =>
       apiBuilder
         .query(

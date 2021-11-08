@@ -9,7 +9,7 @@ class AdminModelWithResolveType extends AdminModel {
 }
 
 export const adminE2ETest = (apiBuilder: ApiTestBuilder): void =>
-  describe('AdminResolver [E2E]', () => {
+  describe('[E2E] AdminResolver', () => {
     it(testDescription('query', '관리자 아이디를 만들 수 있어야 한다.'), () =>
       apiBuilder
         .query(
