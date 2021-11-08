@@ -23,7 +23,7 @@ function startTest(): void {
     apiBuilder.setApp(nestApp);
   });
   afterAll(async () => {
-    await clearTestData(apiBuilder);
+    await clearTestData();
   });
   // ! start test
   adminE2ETest(apiBuilder);

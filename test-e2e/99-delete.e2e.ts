@@ -2,7 +2,7 @@ import { getDataFromBody, testDescription } from './common/fn';
 import { ApiTestBuilder } from './common/api-test.builder';
 
 export const deleteE2ETest = (apiBuilder: ApiTestBuilder): void =>
-  describe('NotificationResolver [E2E]', () => {
+  describe('DeleteResolver [E2E]', () => {
     it(testDescription('mutation', '관리자의 아이디를 탈퇴할 수 있어야 한다.'), () =>
       apiBuilder
         .query('mutation', `deleteAdmin(password:"${apiBuilder.getAdmin().password}")`)

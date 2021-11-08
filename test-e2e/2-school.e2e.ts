@@ -5,7 +5,7 @@ import { ApiTestBuilder } from './common/api-test.builder';
 import { getDataFromBody, getErrorFromBody, testDescription } from './common/fn';
 
 export const schoolE2ETest = (apiBuilder: ApiTestBuilder): void =>
-  describe('StudentResolver [E2E]', () => {
+  describe('SchoolResolver [E2E]', () => {
     it(testDescription('mutation', '권한이 없는 관리자는 학교를 추가할 수 없어야 한다.'), () =>
       apiBuilder
         .query(

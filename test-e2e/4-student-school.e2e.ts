@@ -1,7 +1,7 @@
 import { ApiTestBuilder } from './common/api-test.builder';
 
 export const studentSchoolE2ETest = (apiBuilder: ApiTestBuilder): void =>
-  describe('NotificationResolver [E2E]', () => {
+  describe('StudentSchoolResolver [E2E]', () => {
     it.todo('subscribeSchool');
     it.todo('unsubscribeSchool');
     it.todo('getListSubscribedSchool');
