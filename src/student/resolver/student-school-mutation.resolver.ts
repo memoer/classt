@@ -1,6 +1,6 @@
 import { AuthGuardOf, CurrentUser } from '@app/etc';
 import { Resolver, Args, Mutation } from '@nestjs/graphql';
-import { StudentSchoolService } from '../application/student-school.service';
+import { StudentSchoolService } from '../application/service/student-school.service';
 import { Student } from '../domain/entity/student.entity';
 import { StudentSchoolModel } from '../dto/student-school.model';
 import { StudentModel } from '../dto/student.model';

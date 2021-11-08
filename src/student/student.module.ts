@@ -1,12 +1,13 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { StudentService } from './application/student.service';
-import { StudentSchoolService } from './application/student-school.service';
+import { StudentService } from './application/service/student.service';
+import { StudentSchoolService } from './application/service/student-school.service';
 import { StudentRepository } from './infra/student.repository';
 import { StudentMutationResolver } from './resolver/student-mutation.resolver';
 import { StudentQueryResolver } from './resolver/student-query.resolver';
 import { StudentSchoolMutationResolver } from './resolver/student-school-mutation.resolver';
 import { StudentSchoolDAO } from './infra/student-school.dao';
+import { StudentValidator } from './application/lib/student.validator';
 
 @Module({
   imports: [TypeOrmModule.forFeature([StudentRepository])],
@@ -19,6 +20,7 @@ import { StudentSchoolDAO } from './infra/student-school.dao';
     StudentService,
     StudentSchoolService,
     StudentSchoolDAO,
+    StudentValidator,
   ],
   exports: [StudentSchoolDAO],
 })

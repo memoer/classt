@@ -2,7 +2,7 @@ import { AuthGuardOf, CurrentUser } from '@app/etc';
 import { GetTokenInput } from '@app/util/dto/get-token.in';
 import { Resolver, Query, Args } from '@nestjs/graphql';
 import { plainToClass } from 'class-transformer';
-import { StudentService } from '../application/student.service';
+import { StudentService } from '../application/service/student.service';
 import { Student } from '../domain/entity/student.entity';
 import { StudentModel } from '../dto/student.model';
 

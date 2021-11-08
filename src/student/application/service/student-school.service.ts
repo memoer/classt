@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { plainToClass } from 'class-transformer';
-import { Student } from '../domain/entity/student.entity';
-import { StudentSchool } from '../domain/entity/student-school.entity';
-import { StudentSchoolModel } from '../dto/student-school.model';
-import { StudentRepository } from '../infra/student.repository';
-import { StudentSchoolMutationResolver } from '../resolver/student-school-mutation.resolver';
+import { Student } from '../../domain/entity/student.entity';
+import { StudentSchool } from '../../domain/entity/student-school.entity';
+import { StudentSchoolModel } from '../../dto/student-school.model';
+import { StudentRepository } from '../../infra/student.repository';
+import { StudentSchoolMutationResolver } from '../../resolver/student-school-mutation.resolver';
 
 @Injectable()
 export class StudentSchoolService {

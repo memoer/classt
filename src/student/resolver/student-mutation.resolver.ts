@@ -1,11 +1,11 @@
 import { AuthGuardOf, CurrentUser } from '@app/etc';
 import { Args, Mutation, Resolver } from '@nestjs/graphql';
-import { StudentService } from '../application/student.service';
+import { StudentService } from '../application/service/student.service';
 import { Student } from '../domain/entity/student.entity';
 import { CreateStudentInput } from '../dto/create-student.in';
 import { CreateStudentOutput } from '../dto/create-student.out';
 import { DeleteStudentArgs } from '../dto/delete-student.in';
-import { RestoreStudentArgs } from '../dto/restore-student.in';
+import { RestoreStudentInput } from '../dto/restore-student.in';
 import { StudentModel } from '../dto/student.model';
 import { UpdateStudentInput } from '../dto/update-student.in';
 
@@ -34,7 +34,7 @@ export class StudentMutationResolver {
   }
 
   @Mutation((returns) => Boolean, { name: 'restoreStudent' })
-  restore(@Args() { id }: RestoreStudentArgs): Promise<boolean> {
-    return this.studentService.restore(id);
+  restore(@Args('input') input: RestoreStudentInput): Promise<boolean> {
+    return this.studentService.restore(input);
   }
 }
