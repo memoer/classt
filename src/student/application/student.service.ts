@@ -1,4 +1,4 @@
-import { UtilHash } from '@app/util';
+import { UtilCommon, UtilHash } from '@app/util';
 import { GetTokenInput } from '@app/util/dto/get-token.in';
 import { UtilJwt } from '@app/util/util-jwt';
 import { UtilValidator } from '@app/util/util-validator';
@@ -20,6 +20,7 @@ export class StudentService {
     private readonly utilHash: UtilHash,
     private readonly utilJwt: UtilJwt,
     private readonly utilValidator: UtilValidator,
+    private readonly utilCommon: UtilCommon,
   ) {}
 
   @Transactional()
@@ -77,5 +78,26 @@ export class StudentService {
       password,
       errorMsg: `${email}/존재하지 않는 학생입니다.`,
     });
+  }
+
+  @Transactional()
+  async restore(id: number): ReturnType<StudentMutationResolver['restore']> {
+    const student = await this.studentRepository.findOne({
+      select: ['id', 'deletedAt'],
+      where: { id },
+      withDeleted: true,
+    });
+    this.utilValidator.ifNotFoundThrow({
+      entity: student,
+      errorMsg: `${id}/존재하지 않는 학생입니다.`,
+    });
+    if (!student.isDeleted()) {
+      this.utilCommon.throwException({
+        type: 'BadRequestException',
+        msg: `${id}/회원탈퇴한 학생이 아닙니다.`,
+      });
+    }
+    const result = await this.studentRepository.restore(id);
+    return result.affected === 1;
   }
 }
