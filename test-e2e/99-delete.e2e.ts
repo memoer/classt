@@ -75,4 +75,14 @@ export const deleteE2ETest = (apiBuilder: ApiTestBuilder): void =>
           expect(isSuccess).toEqual(true);
         }),
     );
+    it(testDescription('mutation', '회원탈퇴했던 학생을 복구시킬 수 있어야 한다.'), () =>
+      apiBuilder
+        .query('mutation', `restoreStudent(id:${apiBuilder.getStudent().id})`)
+        .sendGql()
+        .expect(200)
+        .expect((res) => {
+          const isSuccess = getDataFromBody<boolean>(res, 'restoreStudent');
+          expect(isSuccess).toEqual(true);
+        }),
+    );
   });
