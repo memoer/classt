@@ -27,7 +27,7 @@ export class UtilValidator {
   }: IfWrongPasswordThrowArgs): Promise<void> {
     const isValid = await this.utilHash.isEquals(plainPassword, hashPassword);
     if (!isValid) {
-      this.utilCommon.throwException({
+      throw this.utilCommon.exception({
         type: 'ForbiddenException',
         msg: `${plainPassword}/비밀번호가 틀립니다.`,
       });
@@ -35,16 +35,17 @@ export class UtilValidator {
   }
 
   ifThereIsPasswordButWithoutConfirmPasswordThrow(confirmPassword?: string): void {
-    if (!confirmPassword)
-      this.utilCommon.throwException({
+    if (!confirmPassword) {
+      throw this.utilCommon.exception({
         type: 'BadRequestException',
         msg: '확인용 비밀번호도 입력해주세요',
       });
+    }
   }
 
   ifNotFoundThrow<T extends { id: number }>({ entity, errorMsg }: IfNotFoundThrowArgs<T>): void {
     if (!entity) {
-      this.utilCommon.throwException({
+      throw this.utilCommon.exception({
         type: 'NotFoundException',
         msg: errorMsg,
       });

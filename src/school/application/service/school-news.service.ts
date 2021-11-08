@@ -48,7 +48,10 @@ export class SchoolNewsService {
   @Transactional()
   async delete(id: DeleteSchoolNewsArgs['id']): ReturnType<SchoolNewsMutationResolver['delete']> {
     const schoolNews = await this.schoolNewsRepository.findOne(id, { select: ['id'] });
-    this.utilValidator.ifNotFoundThrow({ entity: schoolNews, errorMsg: '없는 학교 소식입니다.' });
+    this.utilValidator.ifNotFoundThrow({
+      entity: schoolNews,
+      errorMsg: '없는 학교 소식입니다.',
+    });
     const result = await this.schoolNewsRepository.softDelete(id);
     return result.affected === 1;
   }

@@ -8,7 +8,7 @@ export class StudentValidator {
 
   ifNotDeletedThrow(student: Student): void {
     if (!student.isDeleted()) {
-      this.utilCommon.throwException({
+      throw this.utilCommon.exception({
         type: 'BadRequestException',
         msg: `${student.id}/회원탈퇴한 학생이 아닙니다.`,
       });

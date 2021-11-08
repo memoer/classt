@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { GetMsArgs, SplitListArgs } from './dto/util-common.dto';
-import { ThrowExceptionArgs } from './dto/util-fn.dto';
-import { throwException } from './util-fn';
+import { ExceptionArgs } from './dto/util-fn.dto';
+import * as Exceptions from '@nestjs/common/exceptions';
 import * as dayjs from 'dayjs';
 
 // * 기본 유틸성 서비스
@@ -37,8 +37,8 @@ export class UtilCommon {
     }
   }
 
-  throwException(args: ThrowExceptionArgs): void {
-    throwException(args);
+  exception({ type, msg }: ExceptionArgs): Error {
+    return new Exceptions[type](msg);
   }
 
   splitList<T>({ chunk, list }: SplitListArgs<T>): T[][] {

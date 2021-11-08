@@ -3,7 +3,7 @@ import { SchoolHelper } from '@app/src/school/application/lib/school.helper';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { SchoolRepository } from '@app/src/school/infra/school.repository';
 import { UtilValidator } from '@app/util';
-import { mockRepository, mockUtilValidator } from '../../common/mock';
+import { mockRepository, mockUtilValidatorValue } from '../../common/mock';
 
 describe('SchoolHelper', () => {
   let service: SchoolHelper;
@@ -13,7 +13,7 @@ describe('SchoolHelper', () => {
       providers: [
         SchoolHelper,
         { provide: getRepositoryToken(SchoolRepository), useValue: mockRepository() },
-        { provide: UtilValidator, useValue: mockUtilValidator() },
+        { provide: UtilValidator, useValue: mockUtilValidatorValue() },
       ],
     }).compile();
 

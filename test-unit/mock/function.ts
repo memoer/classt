@@ -1,5 +1,5 @@
 export interface MockUtilCommonReturns {
-  throwException: jest.Mock<any, any>;
+  exception: jest.Mock<any, any>;
 }
 export interface MockUtilDAOReturns {
   getSkip: jest.Mock<any, any>;
@@ -22,11 +22,11 @@ export interface MockRepositoryReturns {
   findOne: jest.Mock<any, any>;
   save: jest.Mock<any, any>;
   create: jest.Mock<any, any>;
+  softDelete: jest.Mock<any, any>;
+  restore: jest.Mock<any, any>;
   // findOneOrFail: jest.Mock<any, any>;
   // findAndCount: jest.Mock<any, any>;
   // update: jest.Mock<any, any>;
-  // restore: jest.Mock<any, any>;
-  // softDelete: jest.Mock<any, any>;
 }
 export interface MockConnectionReturns {
   createQueryBuilder: jest.Mock<any, any>;
@@ -38,18 +38,18 @@ export interface MockEventEmitterReturns {
   emit: jest.Mock<any, any>;
 }
 
-export const mockUtilCommonValue = (): MockUtilCommonReturns => ({ throwException: jest.fn() });
+export const mockUtilCommonValue = (): MockUtilCommonReturns => ({ exception: jest.fn() });
 export const mockUtilDAO = (): MockUtilDAOReturns => ({ getSkip: jest.fn() });
-export const mockUtilHash = (): MockUtilHashReturns => ({
+export const mockUtilHashValue = (): MockUtilHashReturns => ({
   genHash: jest.fn(),
   isEquals: jest.fn(),
 });
-export const mockUtilValidator = (): MockUtilValidatorReturns => ({
+export const mockUtilValidatorValue = (): MockUtilValidatorReturns => ({
   ifWrongPasswordThrow: jest.fn(),
   ifThereIsPasswordButWithoutConfirmPasswordThrow: jest.fn(),
   ifNotFoundThrow: jest.fn(),
 });
-export const mockUtilJwt = (): MockUtilJwtReturns => ({
+export const mockUtilJwtValue = (): MockUtilJwtReturns => ({
   sign: jest.fn(),
   verify: jest.fn(),
   getToken: jest.fn(),
@@ -58,11 +58,11 @@ export const mockRepository = (): MockRepositoryReturns => ({
   findOne: jest.fn(),
   save: jest.fn(),
   create: jest.fn(),
+  softDelete: jest.fn(),
+  restore: jest.fn(),
   // findOneOrFail: jest.fn(),
   // findAndCount: jest.fn(),
   // update: jest.fn(),
-  // restore: jest.fn(),
-  // softDelete: jest.fn(),
 });
 export const mockConnection = (): MockConnectionReturns => ({
   createQueryBuilder: jest.fn().mockReturnThis(),

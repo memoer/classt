@@ -24,7 +24,7 @@ describe('AdminAuthService', () => {
     expect(adminAuthService).toBeDefined();
   });
 
-  it('adminAuthService _ add', async () => {
+  it('adminAuthService_add', async () => {
     // value
     const input: { admin: Admin; newAuthTypeList: AdminAuthType[] } = {
       admin: mockAdmin(),
@@ -44,7 +44,7 @@ describe('AdminAuthService', () => {
     expect(result).toEqual(expected);
   });
 
-  it('adminAuthService _ delete', async () => {
+  it('adminAuthService_delete', async () => {
     // value
     const input: { admin: Admin; authTypeToDeleteList: AdminAuthType[] } = {
       admin: mockAdmin(),

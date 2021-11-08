@@ -7,7 +7,7 @@ import { getRepositoryToken } from '@nestjs/typeorm';
 import { SchoolNewsRepository } from '@app/src/school/infra/school-news.repository';
 import { SchoolRepository } from '@app/src/school/infra/school.repository';
 import { UtilValidator } from '@app/util';
-import { mockEventEmitter, mockRepository, mockUtilValidator } from '../../common/mock';
+import { mockEventEmitter, mockRepository, mockUtilValidatorValue } from '../../common/mock';
 
 describe('SchoolNewsService', () => {
   let service: SchoolNewsService;
@@ -22,7 +22,7 @@ describe('SchoolNewsService', () => {
         { provide: SchoolHelper, useValue: mockSchoolHelper },
         { provide: getRepositoryToken(SchoolNewsRepository), useValue: mockRepository() },
         { provide: SchoolNewsHelper, useValue: mockShoolNewHelper },
-        { provide: UtilValidator, useValue: mockUtilValidator() },
+        { provide: UtilValidator, useValue: mockUtilValidatorValue() },
         { provide: EventEmitter2, useValue: mockEventEmitter() },
       ],
     }).compile();

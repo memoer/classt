@@ -36,7 +36,7 @@ module.exports = {
     },
   },
   // Indicates whether each individual test should be reported during the run
-  verbose: false,
+  verbose: true,
   // The paths to modules that run some code to configure or set up the testing environment before each test
   setupFiles: ['./test-unit/set-up.ts'],
 };

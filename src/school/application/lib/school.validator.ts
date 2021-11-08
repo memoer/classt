@@ -16,7 +16,7 @@ export class SchoolValidator {
       select: ['id'],
     });
     if (!!school) {
-      this.utilCommon.throwException({
+      throw this.utilCommon.exception({
         type: 'ConflictException',
         msg: `${location}_${name}/이미 있는 학교입니다.`,
       });

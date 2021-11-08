@@ -1,6 +1,6 @@
 import * as Exceptions from '@nestjs/common/exceptions';
 
-export class ThrowExceptionArgs {
+export class ExceptionArgs {
   type: Exclude<keyof typeof Exceptions, 'HttpException'>;
   msg?: string;
 }

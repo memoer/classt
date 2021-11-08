@@ -6,7 +6,7 @@ import { AdminAuthModel } from '@app/src/admin/dto/admin-auth.model';
 import { AdminAuthType } from '@app/src/admin/domain/entity/admin-auth.entity';
 import { mockConnection, MockConnectionReturns } from '../../mock/function';
 
-describe('AdminAuthService', () => {
+describe('AdminAuthDAO', () => {
   let adminAuthDAO: AdminAuthDAO;
   let mockDBConnection: MockConnectionReturns;
 
@@ -23,7 +23,7 @@ describe('AdminAuthService', () => {
     expect(adminAuthDAO).toBeDefined();
   });
 
-  it('should be return AdminAuthModel', async () => {
+  it('adminAutoDAO_findMany', async () => {
     // value
     const expected: AdminAuthModel[] = [{ id: 1, type: AdminAuthType.CREATE_SCHOOL }];
     // when

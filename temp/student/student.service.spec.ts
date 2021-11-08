@@ -4,7 +4,12 @@ import { StudentValidator } from '@app/src/student/application/lib/student.valid
 import { StudentRepository } from '@app/src/student/infra/student.repository';
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { UtilHash, UtilJwt, UtilValidator } from '@app/util';
-import { mockRepository, mockUtilHash, mockUtilJwt, mockUtilValidator } from '../../common/mock';
+import {
+  mockRepository,
+  mockUtilHashValue,
+  mockUtilJwtValue,
+  mockUtilValidatorValue,
+} from '../../common/mock';
 
 describe('StudentService', () => {
   let service: StudentService;
@@ -15,9 +20,9 @@ describe('StudentService', () => {
       providers: [
         StudentService,
         { provide: getRepositoryToken(StudentRepository), useValue: mockRepository() },
-        { provide: UtilHash, useValue: mockUtilHash() },
-        { provide: UtilJwt, useValue: mockUtilJwt() },
-        { provide: UtilValidator, useValue: mockUtilValidator() },
+        { provide: UtilHash, useValue: mockUtilHashValue() },
+        { provide: UtilJwt, useValue: mockUtilJwtValue() },
+        { provide: UtilValidator, useValue: mockUtilValidatorValue() },
         { provide: StudentValidator, useValue: mockStudentValidator },
       ],
     }).compile();

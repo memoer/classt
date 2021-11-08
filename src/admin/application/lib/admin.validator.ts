@@ -12,7 +12,7 @@ export class AdminValidator {
   async ifAlreadyExistThrow(email: string): Promise<void> {
     const admin = await this.adminRepository.findOne({ where: { email }, select: ['email'] });
     if (!!admin) {
-      this.utilCommn.throwException({
+      throw this.utilCommn.exception({
         type: 'ConflictException',
         msg: `${email}/사용하고 있는 이메일입니다.`,
       });

@@ -33,8 +33,9 @@ describe('AdminValidator', () => {
     expect(adminValidator).toBeDefined();
   });
 
-  it('if admin already exist, throw error', async () => {
+  it('adminValidator_ifAlreadyExistThrow: if admin already exists, throw error', async () => {
     // when
+    mockUtilCommon.exception.mockReturnValueOnce(new ConflictException());
     jest.spyOn(mockAdminRepository, 'findOne').mockResolvedValue(true);
     // then
     try {
@@ -43,16 +44,16 @@ describe('AdminValidator', () => {
       expect(err).toBeInstanceOf(ConflictException);
     } finally {
       expect(mockAdminRepository.findOne).toHaveBeenCalledTimes(1);
-      expect(mockUtilCommon.throwException).toHaveBeenCalledTimes(1);
+      expect(mockUtilCommon.exception).toHaveBeenCalledTimes(1);
     }
   });
 
-  it('if admin not found, throw error', async () => {
+  it('adminValidator_ifAlreadyExistThrow: if admin not exists, no throw error', async () => {
     // when
     jest.spyOn(mockAdminRepository, 'findOne').mockResolvedValue(false);
     // then
     await adminValidator.ifAlreadyExistThrow('test@naver.com');
     expect(mockAdminRepository.findOne).toHaveBeenCalledTimes(1);
-    expect(mockUtilCommon.throwException).toHaveBeenCalledTimes(0);
+    expect(mockUtilCommon.exception).not.toHaveBeenCalled();
   });
 });
