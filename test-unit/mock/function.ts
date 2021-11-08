@@ -30,6 +30,7 @@ export interface MockRepositoryReturns {
 }
 export interface MockConnectionReturns {
   createQueryBuilder: jest.Mock<any, any>;
+  select: jest.Mock<any, any>;
   from: jest.Mock<any, any>;
   where: jest.Mock<any, any>;
   getMany: jest.Mock<any, any>;
@@ -64,8 +65,9 @@ export const mockRepositoryValue = (): MockRepositoryReturns => ({
   update: jest.fn(),
   // findAndCount: jest.fn(),
 });
-export const mockConnection = (): MockConnectionReturns => ({
+export const mockConnectionValue = (): MockConnectionReturns => ({
   createQueryBuilder: jest.fn().mockReturnThis(),
+  select: jest.fn().mockReturnThis(),
   from: jest.fn().mockReturnThis(),
   where: jest.fn().mockReturnThis(),
   getMany: jest.fn(),

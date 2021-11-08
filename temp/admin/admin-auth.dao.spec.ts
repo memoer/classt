@@ -4,7 +4,7 @@ import { AdminAuthDAO } from '@app/src/admin/infra/admin-auth.dao';
 import { getConnectionToken } from '@nestjs/typeorm';
 import { AdminAuthModel } from '@app/src/admin/dto/admin-auth.model';
 import { AdminAuthType } from '@app/src/admin/domain/entity/admin-auth.entity';
-import { mockConnection, MockConnectionReturns } from '../../mock/function';
+import { mockConnectionValue, MockConnectionReturns } from '../../mock/function';
 
 describe('AdminAuthDAO', () => {
   let adminAuthDAO: AdminAuthDAO;
@@ -12,7 +12,7 @@ describe('AdminAuthDAO', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [AdminAuthDAO, { provide: getConnectionToken(), useValue: mockConnection() }],
+      providers: [AdminAuthDAO, { provide: getConnectionToken(), useValue: mockConnectionValue() }],
     }).compile();
 
     adminAuthDAO = module.get<AdminAuthDAO>(AdminAuthDAO);

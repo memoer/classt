@@ -11,21 +11,21 @@ export class StudentSchoolService {
   constructor(private readonly studentRepository: StudentRepository) {}
 
   async subscribe(
-    user: Student,
+    student: Student,
     schoolId: number,
   ): ReturnType<StudentSchoolMutationResolver['subscribe']> {
     const newStudentSchool = StudentSchool.createStudentSchool(schoolId);
-    const subscribedSchool = user.subscribeSchool(newStudentSchool);
-    await this.studentRepository.save(user);
+    const subscribedSchool = student.subscribeSchool(newStudentSchool);
+    await this.studentRepository.save(student);
     return plainToClass(StudentSchoolModel, subscribedSchool);
   }
 
   async unsubscribe(
-    user: Student,
+    student: Student,
     schoolId: number,
   ): ReturnType<StudentSchoolMutationResolver['unsubscribe']> {
-    user.unsubscribeSchool(schoolId);
-    await this.studentRepository.save(user);
+    student.unsubscribeSchool(schoolId);
+    await this.studentRepository.save(student);
     return true;
   }
 }

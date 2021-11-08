@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { SchoolNewsDAO } from '@app/src/school/infra/school-news.dao';
 import { getConnectionToken } from '@nestjs/typeorm';
-import { mockConnection, mockUtilDAO } from '../../common/mock';
+import { mockConnectionValue, mockUtilDAO } from '../../common/mock';
 import { UtilDAO } from '@app/util';
 
 describe('SchoolNewsDAO', () => {
@@ -11,7 +11,7 @@ describe('SchoolNewsDAO', () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         SchoolNewsDAO,
-        { provide: getConnectionToken(), useValue: mockConnection() },
+        { provide: getConnectionToken(), useValue: mockConnectionValue() },
         { provide: UtilDAO, useValue: mockUtilDAO() },
       ],
     }).compile();

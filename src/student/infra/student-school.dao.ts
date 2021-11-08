@@ -18,7 +18,7 @@ export class StudentSchoolDAO {
       .createQueryBuilder()
       .from(StudentSchool, 'student_school')
       .where('student_school.schoolId = :schoolId', { schoolId });
-    if (select) {
+    if (!select) {
       qb.select(['student_school']);
     } else {
       qb.select(select.map((s) => `student_school.${s}`));
