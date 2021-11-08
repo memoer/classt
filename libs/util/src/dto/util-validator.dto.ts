@@ -9,3 +9,8 @@ export class IfWrongPasswordThrowArgs {
   plainPassword: string;
   hashPassword: string;
 }
+
+export class IfNotFoundThrowArgs<T> {
+  entity: T;
+  errorMsg: string;
+}

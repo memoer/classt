@@ -1,3 +1,4 @@
+import { UtilValidator } from '@app/util/util-validator';
 import { Injectable } from '@nestjs/common';
 import { plainToClass } from 'class-transformer';
 import { Transactional } from 'typeorm-transactional-cls-hooked';
@@ -8,14 +9,13 @@ import { UpdateSchoolInput } from '../../dto/update-school.in';
 import { SchoolRepository } from '../../infra/school.repository';
 import { SchoolMutationResolver } from '../../resolver/school-mutation.resolver';
 import { SchoolHelper } from '../lib/school.helper';
-import { SchoolValidator } from '../lib/school.validator';
 
 @Injectable()
 export class SchoolService {
   constructor(
     private readonly schoolRepository: SchoolRepository,
     private readonly schoolHelper: SchoolHelper,
-    private readonly schoolValidator: SchoolValidator,
+    private readonly utilValidator: UtilValidator,
   ) {}
 
   @Transactional()
@@ -28,7 +28,7 @@ export class SchoolService {
   @Transactional()
   async delete(id: DeleteSchoolArgs['id']): ReturnType<SchoolMutationResolver['delete']> {
     const school = await this.schoolRepository.findOne(id, { select: ['id'] });
-    this.schoolValidator.ifNotFoundThrow(school);
+    this.utilValidator.ifNotFoundThrow({ entity: school, errorMsg: '없는 학교입니다.' });
     const result = await this.schoolRepository.softDelete(id);
     return result.affected === 1;
   }

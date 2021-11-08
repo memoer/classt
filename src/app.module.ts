@@ -1,6 +1,13 @@
 import { ConfigModule } from '@app/config';
+import { initializeTransactionalContext } from 'typeorm-transactional-cls-hooked';
 import { UtilModule } from '@app/util';
-import { MiddlewareConsumer, Module, NestModule, RequestMethod } from '@nestjs/common';
+import {
+  MiddlewareConsumer,
+  Module,
+  NestModule,
+  OnModuleInit,
+  RequestMethod,
+} from '@nestjs/common';
 import { graphqlUploadExpress } from 'graphql-upload';
 import { AdminModule } from './admin/admin.module';
 import { SchoolModule } from './school/school.module';
@@ -18,7 +25,11 @@ import { NotificationModule } from './notification/notification.module';
     NotificationModule,
   ],
 })
-export class AppModule implements NestModule {
+export class AppModule implements NestModule, OnModuleInit {
+  onModuleInit(): void {
+    initializeTransactionalContext();
+  }
+
   configure(consumer: MiddlewareConsumer): void {
     consumer
       .apply(graphqlUploadExpress())

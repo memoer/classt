@@ -1,3 +1,4 @@
+import { UtilValidator } from '@app/util/util-validator';
 import { Injectable } from '@nestjs/common';
 import { EventEmitter2 } from '@nestjs/event-emitter';
 import { plainToClass } from 'class-transformer';
@@ -13,7 +14,6 @@ import { SchoolNewsRepository } from '../../infra/school-news.repository';
 import { SchoolRepository } from '../../infra/school.repository';
 import { SchoolNewsMutationResolver } from '../../resolver/school-news-mutation.resolver';
 import { SchoolNewsHelper } from '../lib/school-news.helper';
-import { SchoolNewsValidator } from '../lib/school-news.validator';
 import { SchoolHelper } from '../lib/school.helper';
 
 @Injectable()
@@ -23,7 +23,7 @@ export class SchoolNewsService {
     private readonly schoolHelper: SchoolHelper,
     private readonly schoolNewsRepository: SchoolNewsRepository,
     private readonly schoolNewsHelper: SchoolNewsHelper,
-    private readonly schoolNewsValidator: SchoolNewsValidator,
+    private readonly utilValidator: UtilValidator,
     private readonly eventEmitter: EventEmitter2,
   ) {}
 
@@ -48,7 +48,7 @@ export class SchoolNewsService {
   @Transactional()
   async delete(id: DeleteSchoolNewsArgs['id']): ReturnType<SchoolNewsMutationResolver['delete']> {
     const schoolNews = await this.schoolNewsRepository.findOne(id, { select: ['id'] });
-    this.schoolNewsValidator.ifNotFoundThrow(schoolNews);
+    this.utilValidator.ifNotFoundThrow({ entity: schoolNews, errorMsg: '없는 학교 소식입니다.' });
     const result = await this.schoolNewsRepository.softDelete(id);
     return result.affected === 1;
   }

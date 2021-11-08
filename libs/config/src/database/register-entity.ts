@@ -2,5 +2,10 @@ import { join } from 'path';
 
 export const registerEntity = (...moduleNameList: string[]): string[] =>
   moduleNameList.map((moduleName) =>
-    join(process.cwd(), 'dist/src', moduleName, '**', '*.entity.js'),
+    join(
+      process.cwd(),
+      process.env.NODE_ENV === 'test' ? '' : 'dist',
+      `src/${moduleName}/domain/entity`,
+      '*.entity{.ts,.js}',
+    ),
   );

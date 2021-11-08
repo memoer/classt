@@ -6,6 +6,7 @@ import { AdminModel } from '../dto/admin.model';
 import { CreateAdminInput } from '../dto/create-admin.in';
 import { CreateAdminOutput } from '../dto/create-admin.out';
 import { DeleteAdminArgs } from '../dto/delete-admin.in';
+import { RestoreAdminArgs } from '../dto/restore-admin.in';
 import { UpdateAdminInput } from '../dto/update-admin.in';
 
 @Resolver((of) => AdminModel)
@@ -27,5 +28,10 @@ export class AdminMutationResolver {
   @AuthGuardOf('ADMIN')
   update(@CurrentUser() me: Admin, @Args('input') input: UpdateAdminInput): Promise<AdminModel> {
     return this.adminService.update(me, input);
+  }
+
+  @Mutation((returns) => Boolean, { name: 'restoreAdmin' })
+  restore(@Args() { id }: RestoreAdminArgs): Promise<boolean> {
+    return this.adminService.restore(id);
   }
 }

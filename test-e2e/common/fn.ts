@@ -9,7 +9,7 @@ export interface ErrorResponse {
   error: string;
 }
 
-export function desc(type: QueryType, description: string): string {
+export function testDescription(type: QueryType, description: string): string {
   return `${type.toUpperCase()}: ${description}`;
 }
 

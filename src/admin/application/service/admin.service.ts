@@ -12,6 +12,7 @@ import { DeleteAdminArgs } from '../../dto/delete-admin.in';
 import { UpdateAdminInput } from '../../dto/update-admin.in';
 import { AdminRepository } from '../../infra/admin.repository';
 import { AdminMutationResolver } from '../../resolver/admin-mutation.resolver';
+import { AdminValidator } from '../lib/admin.validator';
 
 @Injectable()
 export class AdminService {
@@ -20,6 +21,7 @@ export class AdminService {
     private readonly utilHash: UtilHash,
     private readonly utilValidator: UtilValidator,
     private readonly utilJwt: UtilJwt,
+    private readonly adminValidator: AdminValidator,
   ) {}
 
   @Transactional()
@@ -28,6 +30,7 @@ export class AdminService {
     password,
     name,
   }: CreateAdminInput): ReturnType<AdminMutationResolver['create']> {
+    await this.adminValidator.ifAlreadyExistThrow(email);
     const newAdminEntity = this.adminRepository.create({
       email,
       password: await this.utilHash.genHash(password),
@@ -55,6 +58,9 @@ export class AdminService {
     admin: Admin,
     { email, password, confirmPassword, name }: UpdateAdminInput,
   ): ReturnType<AdminMutationResolver['update']> {
+    if (email) {
+      await this.adminValidator.ifAlreadyExistThrow(email);
+    }
     if (password) {
       this.utilValidator.ifThereIsPasswordButWithoutConfirmPasswordThrow(confirmPassword);
       admin.password = await this.utilHash.genHash(password);
@@ -66,5 +72,11 @@ export class AdminService {
 
   async getToken({ email, password }: GetTokenInput): ReturnType<UtilJwt['getToken']> {
     return this.utilJwt.getToken(this.adminRepository, { email, password });
+  }
+
+  @Transactional()
+  async restore(id: number): ReturnType<AdminMutationResolver['restore']> {
+    const result = await this.adminRepository.restore(id);
+    return result.affected === 1;
   }
 }

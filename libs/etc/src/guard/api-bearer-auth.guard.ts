@@ -9,8 +9,10 @@ export class ApiBearerAuthGuard implements CanActivate {
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const { req } = GqlExecutionContext.create(context).getContext<GqlCtx>();
+    if (!req.headers.authorization) return false;
     const [type, token] = req.headers.authorization.split(' ');
     if (type !== 'Bearer') return false;
+    if (!token) return false;
     const decoded = this.utilJwt.verify(token.toString());
     if (typeof decoded === 'object' && decoded.hasOwnProperty('id')) {
       req.user = { id: decoded.id };

@@ -24,7 +24,7 @@ export class UtilJwt {
       select: ['id', 'password'],
       where: { email },
     });
-    this.utilValidator.ifNotFoundThrow(admin);
+    this.utilValidator.ifNotFoundThrow({ entity: admin, errorMsg: '없는 관리자입니다.' });
     await this.utilValidator.ifWrongPasswordThrow({
       plainPassword: password,
       hashPassword: admin.password,

@@ -1,7 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import * as dayjs from 'dayjs';
 import { UtilCommon, UtilHash } from '.';
-import { DiffTimeArgs, IfWrongPasswordThrowArgs } from './dto/util-validator.dto';
+import {
+  DiffTimeArgs,
+  IfNotFoundThrowArgs,
+  IfWrongPasswordThrowArgs,
+} from './dto/util-validator.dto';
 
 @Injectable()
 export class UtilValidator {
@@ -38,11 +42,11 @@ export class UtilValidator {
       });
   }
 
-  ifNotFoundThrow<T extends { id: number }>(entity: T): void {
+  ifNotFoundThrow<T extends { id: number }>({ entity, errorMsg }: IfNotFoundThrowArgs<T>): void {
     if (!entity) {
       this.utilCommon.throwException({
         type: 'NotFoundException',
-        msg: `${entity.id}/없는 관리자 입니다.`,
+        msg: `${entity.id}/${errorMsg}`,
       });
     }
   }

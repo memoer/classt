@@ -1,33 +1,60 @@
 import { INestApplication } from '@nestjs/common';
 import * as request from 'supertest';
-import { resolve } from 'path';
+import { join } from 'path';
 import { config } from 'dotenv';
 
 export type QueryType = 'mutation' | 'query';
+type UserType = 'admin' | 'student';
 interface TestData {
   query: string;
   header?: Record<string, any>;
 }
 
-export class ApiTestBuilder {
-  private readonly app: INestApplication;
-  private testData: TestData;
-  private token: string;
+interface User {
+  id: number;
+  token: string;
+  email: string;
+  password: string;
+}
 
-  constructor(app: INestApplication) {
-    config({ path: resolve(__dirname, '../.env.test') });
+export class ApiTestBuilder {
+  private app: INestApplication;
+  public testData: TestData;
+  private admin = {
+    id: 0,
+    token: '',
+    email: '',
+    password: '',
+  };
+  private student = {
+    id: 0,
+    token: '',
+    email: '',
+    password: '',
+  };
+
+  constructor() {
+    config({ path: join(process.cwd(), '.env.test') });
+  }
+  setUser(type: UserType, { id, token, email, password }: Partial<User>): void {
+    const key = type;
+    if (id !== undefined) this[key].id = id;
+    if (token) this[key].token = token;
+    if (email) this[key].email = email;
+    if (password) this[key].password = password;
+  }
+  getUser(type: UserType): User {
+    return type === 'admin' ? this.admin : this.student;
+  }
+  setApp(app: INestApplication): void {
     this.app = app;
   }
 
-  setToken(token: string): void {
-    this.token = token;
-  }
-  getToken(): string {
-    return this.token;
-  }
-
-  includeToken(): this {
-    this.testData.header = { ...this.testData.header, Authorization: `Bearer ${this.token}` };
+  includeToken(type: UserType): this {
+    this.testData.header = {
+      ...this.testData.header,
+      Authorization: `Bearer ${type === 'admin' ? this.admin.token : this.student.token}`,
+    };
     return this;
   }
 
@@ -45,6 +72,6 @@ export class ApiTestBuilder {
     const { query, header } = this.testData;
     const spec = request(this.app.getHttpServer()).post('/graphql');
     if (header) spec.set(header);
-    return spec.send({ query }).expect(200);
+    return spec.send({ query });
   }
 }
