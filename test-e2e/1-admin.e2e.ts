@@ -82,8 +82,8 @@ export const adminE2ETest = (apiBuilder: ApiTestBuilder): void =>
         .sendGql()
         .expect(200)
         .expect((res) => {
-          const isSuccess = getDataFromBody<boolean>(res, 'deleteAdmin');
-          expect(isSuccess).toEqual(expect.any(Boolean));
+          const result = getDataFromBody<boolean>(res, 'deleteAdmin');
+          expect(result).toEqual(expect.any(Boolean));
         }),
     );
     it(testDescription('mutation', 'restoreAdmin'), () =>
@@ -92,8 +92,8 @@ export const adminE2ETest = (apiBuilder: ApiTestBuilder): void =>
         .sendGql()
         .expect(200)
         .expect((res) => {
-          const isSuccess = getDataFromBody<boolean>(res, 'restoreAdmin');
-          expect(isSuccess).toEqual(expect.any(Boolean));
+          const result = getDataFromBody<boolean>(res, 'restoreAdmin');
+          expect(result).toEqual(expect.any(Boolean));
         }),
     );
     it(testDescription('query', 'getMyAdminInfo'), () =>
@@ -141,5 +141,15 @@ export const adminE2ETest = (apiBuilder: ApiTestBuilder): void =>
           );
         }),
     );
-    // it.todo('deleteAdminAuth');
+    it(testDescription('mutation', 'deleteAdminAuth'), () =>
+      apiBuilder
+        .query('mutation', `deleteAdminAuth(authTypeList: [UPDATE_SCHOOL])`)
+        .includeToken('admin')
+        .sendGql()
+        .expect(200)
+        .expect((res) => {
+          const result = getDataFromBody<boolean>(res, 'deleteAdminAuth');
+          expect(result).toEqual(expect.any(Boolean));
+        }),
+    );
   });
