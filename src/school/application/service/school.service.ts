@@ -9,6 +9,7 @@ import { UpdateSchoolInput } from '../../dto/update-school.in';
 import { SchoolRepository } from '../../infra/school.repository';
 import { SchoolMutationResolver } from '../../resolver/school-mutation.resolver';
 import { SchoolHelper } from '../lib/school.helper';
+import { SchoolValidator } from '../lib/school.validator';
 
 @Injectable()
 export class SchoolService {
@@ -16,10 +17,12 @@ export class SchoolService {
     private readonly schoolRepository: SchoolRepository,
     private readonly schoolHelper: SchoolHelper,
     private readonly utilValidator: UtilValidator,
+    private readonly schoolValidator: SchoolValidator,
   ) {}
 
   @Transactional()
   async create(args: CreateSchoolInput): ReturnType<SchoolMutationResolver['create']> {
+    await this.schoolValidator.ifAlreadyExistThrow(args);
     const newSchoolEntity = this.schoolRepository.create(args);
     const newSchool = await this.schoolRepository.save(newSchoolEntity);
     return plainToClass(SchoolModel, newSchool);

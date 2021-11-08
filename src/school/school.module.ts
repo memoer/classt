@@ -3,6 +3,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { NotificationModule } from '../notification/notification.module';
 import { SchoolNewsHelper } from './application/lib/school-news.helper';
 import { SchoolHelper } from './application/lib/school.helper';
+import { SchoolValidator } from './application/lib/school.validator';
 import { SchoolNewsService } from './application/service/school-news.service';
 import { SchoolService } from './application/service/school.service';
 import { SchoolNewsEvent } from './infra/schoo-news.event';
@@ -28,6 +29,7 @@ import { SchoolQueryResolver } from './resolver/school-query.resolver';
     SchoolHelper,
     SchoolNewsService,
     SchoolNewsHelper,
+    SchoolValidator,
     // 인프라
     SchoolNewsDAO,
     SchoolDAO,

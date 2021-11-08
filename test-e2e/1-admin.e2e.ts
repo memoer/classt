@@ -2,7 +2,7 @@ import { AdminAuthModel } from '@app/src/admin/dto/admin-auth.model';
 import { AdminModel } from '@app/src/admin/dto/admin.model';
 import { CreateAdminOutput } from '@app/src/admin/dto/create-admin.out';
 import { ApiTestBuilder } from './common/api-test.builder';
-import { getDataFromBody, getErrorFromBody, testDescription } from './common/fn';
+import { getDataFromBody, testDescription } from './common/fn';
 
 class AdminModelWithResolveType extends AdminModel {
   authList: AdminAuthModel[];
@@ -22,19 +22,14 @@ export const adminE2ETest = (apiBuilder: ApiTestBuilder): void =>
         .sendGql()
         .expect(200)
         .expect((res) => {
-          const error = getErrorFromBody(res);
-          if (error[0]?.extensions?.code === 409) {
-            apiBuilder.setUser('admin', { email: 'test@naver.com', password: 'qwert12345#' });
-          } else {
-            const { data, token } = getDataFromBody<CreateAdminOutput>(res, 'createAdmin');
-            const { id, email, name, authList } = data as AdminModelWithResolveType;
-            apiBuilder.setUser('admin', { id, token, email, password: 'qwert12345#' });
-            expect(token).toEqual(expect.any(String));
-            expect(id).toEqual(expect.any(Number));
-            expect(email).toEqual('test@naver.com');
-            expect(name).toEqual('abc');
-            expect(authList).toEqual([]);
-          }
+          const { data, token } = getDataFromBody<CreateAdminOutput>(res, 'createAdmin');
+          const { id, email, name, authList } = data as AdminModelWithResolveType;
+          apiBuilder.setUser('admin', { id, token, email, password: 'qwert12345#' });
+          expect(token).toEqual(expect.any(String));
+          expect(id).toEqual(expect.any(Number));
+          expect(email).toEqual('test@naver.com');
+          expect(name).toEqual('abc');
+          expect(authList).toEqual([]);
         }),
     );
     it(testDescription('mutation', '관리자의 토큰을 조회할 수 있어야 한다.'), () =>
@@ -65,35 +60,11 @@ export const adminE2ETest = (apiBuilder: ApiTestBuilder): void =>
         .sendGql()
         .expect(200)
         .expect((res) => {
-          const error = getErrorFromBody(res);
-          if (!error || error[0]?.extensions?.code === 409) {
-            const { id, email, name } = getDataFromBody<AdminModel>(res, 'updateAdmin');
-            apiBuilder.setUser('admin', { email: 'test@google.com', password: 'q1w2e3r4t5y6#' });
-            expect(id).toEqual(expect.any(Number));
-            expect(email).toEqual('test@google.com');
-            expect(name).toEqual('zxc');
-          }
-        }),
-    );
-    it(testDescription('mutation', '관리자의 아이디를 탈퇴할 수 있어야 한다.'), () =>
-      apiBuilder
-        .query('mutation', `deleteAdmin(password:"${apiBuilder.getUser('admin').password}")`)
-        .includeToken('admin')
-        .sendGql()
-        .expect(200)
-        .expect((res) => {
-          const result = getDataFromBody<boolean>(res, 'deleteAdmin');
-          expect(result).toEqual(expect.any(Boolean));
-        }),
-    );
-    it(testDescription('mutation', '탈퇴된 관리자를 복구시킬 수 있어야 한다.'), () =>
-      apiBuilder
-        .query('mutation', `restoreAdmin(id:${apiBuilder.getUser('admin').id})`)
-        .sendGql()
-        .expect(200)
-        .expect((res) => {
-          const result = getDataFromBody<boolean>(res, 'restoreAdmin');
-          expect(result).toEqual(expect.any(Boolean));
+          const { id, email, name } = getDataFromBody<AdminModel>(res, 'updateAdmin');
+          apiBuilder.setUser('admin', { email: 'test@google.com', password: 'q1w2e3r4t5y6#' });
+          expect(id).toEqual(expect.any(Number));
+          expect(email).toEqual('test@google.com');
+          expect(name).toEqual('zxc');
         }),
     );
     it(testDescription('query', '관리자의 정보를 조회할 수 있어야 한다.'), () =>
@@ -143,7 +114,7 @@ export const adminE2ETest = (apiBuilder: ApiTestBuilder): void =>
     );
     it(testDescription('mutation', '관리자의 권한을 제거할 수 있어야 한다.'), () =>
       apiBuilder
-        .query('mutation', `deleteAdminAuth(authTypeList: [CREATE_SCHOOL])`)
+        .query('mutation', `deleteAdminAuth(authTypeList: [CREATE_SCHOOL, CREATE_SCHOOL_NEWS])`)
         .includeToken('admin')
         .sendGql()
         .expect(200)

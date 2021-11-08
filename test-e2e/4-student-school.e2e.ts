@@ -4,6 +4,7 @@ export const studentSchoolE2ETest = (apiBuilder: ApiTestBuilder): void =>
   describe('NotificationResolver [E2E]', () => {
     it.todo('subscribeSchool');
     it.todo('unsubscribeSchool');
+    it.todo('getListSubscribedSchool');
     it.todo('getListSubscribedSchoolNews');
     it.todo('getListArchivedSchoolNews');
   });
