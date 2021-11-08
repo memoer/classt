@@ -3,7 +3,7 @@ import { AdminValidator } from '@app/src/admin/application/lib/admin.validator';
 import { AdminRepository } from '@app/src/admin/infra/admin.repository';
 import { UtilCommon } from '@app/util';
 import {
-  mockRepository,
+  mockRepositoryValue,
   MockRepositoryReturns,
   MockUtilCommonReturns,
   mockUtilCommonValue,
@@ -19,7 +19,7 @@ describe('AdminValidator', () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         AdminValidator,
-        { provide: AdminRepository, useValue: mockRepository() },
+        { provide: AdminRepository, useValue: mockRepositoryValue() },
         { provide: UtilCommon, useValue: mockUtilCommonValue() },
       ],
     }).compile();
@@ -33,7 +33,7 @@ describe('AdminValidator', () => {
     expect(adminValidator).toBeDefined();
   });
 
-  it('adminValidator_ifAlreadyExistThrow: if admin already exists, throw error', async () => {
+  it('ifAlreadyExistThrow: if admin already exists, throw error', async () => {
     // when
     mockUtilCommon.exception.mockReturnValueOnce(new ConflictException());
     jest.spyOn(mockAdminRepository, 'findOne').mockResolvedValue(true);
@@ -48,7 +48,7 @@ describe('AdminValidator', () => {
     }
   });
 
-  it('adminValidator_ifAlreadyExistThrow: if admin not exists, no throw error', async () => {
+  it('ifAlreadyExistThrow: if admin not exists, no throw error', async () => {
     // when
     jest.spyOn(mockAdminRepository, 'findOne').mockResolvedValue(false);
     // then

@@ -23,7 +23,7 @@ describe('AdminAuthDAO', () => {
     expect(adminAuthDAO).toBeDefined();
   });
 
-  it('adminAutoDAO_findMany', async () => {
+  it('findMany', async () => {
     // value
     const expected: AdminAuthModel[] = [{ id: 1, type: AdminAuthType.CREATE_SCHOOL }];
     // when

@@ -19,7 +19,7 @@ describe('StudentService', () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         StudentService,
-        { provide: getRepositoryToken(StudentRepository), useValue: mockRepository() },
+        { provide: getRepositoryToken(StudentRepository), useValue: mockRepositoryValue() },
         { provide: UtilHash, useValue: mockUtilHashValue() },
         { provide: UtilJwt, useValue: mockUtilJwtValue() },
         { provide: UtilValidator, useValue: mockUtilValidatorValue() },

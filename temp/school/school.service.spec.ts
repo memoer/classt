@@ -16,7 +16,7 @@ describe('SchoolService', () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         SchoolService,
-        { provide: getRepositoryToken(SchoolRepository), useValue: mockRepository() },
+        { provide: getRepositoryToken(SchoolRepository), useValue: mockRepositoryValue() },
         { provide: SchoolHelper, useValue: mockSchoolHelper },
         { provide: UtilValidator, useValue: mockUtilValidatorValue() },
         { provide: SchoolValidator, useValue: mockSchoolValidator },

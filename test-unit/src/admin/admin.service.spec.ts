@@ -6,7 +6,7 @@ import { AdminRepository } from '@app/src/admin/infra/admin.repository';
 import { UtilHash, UtilValidator } from '@app/util';
 import { UtilJwt } from '@app/util/util-jwt';
 import {
-  mockRepository,
+  mockRepositoryValue,
   mockUtilHashValue,
   mockUtilValidatorValue,
   mockUtilJwtValue,
@@ -31,7 +31,7 @@ describe('AdminService', () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         AdminService,
-        { provide: AdminRepository, useValue: mockRepository() },
+        { provide: AdminRepository, useValue: mockRepositoryValue() },
         { provide: UtilHash, useValue: mockUtilHashValue() },
         { provide: UtilValidator, useValue: mockUtilValidatorValue() },
         { provide: UtilJwt, useValue: mockUtilJwtValue() },
@@ -52,7 +52,7 @@ describe('AdminService', () => {
     expect(adminService).toBeDefined();
   });
 
-  it('adminService_create: if email to create is duplicated, throw ConflictException', async () => {
+  it('create: if email to create is duplicated, throw ConflictException', async () => {
     // value
     const input: CreateAdminInput = {
       email: 'test@naver.com',
@@ -73,7 +73,7 @@ describe('AdminService', () => {
     }
   });
 
-  it('adminService_create: success', async () => {
+  it('create: success', async () => {
     // value
     const input: CreateAdminInput = {
       email: 'test@naver.com',
@@ -105,7 +105,7 @@ describe('AdminService', () => {
     expect(result).toEqual(expected);
   });
 
-  it('adminService_delete: if wrong password, throw ForbiddenException', async () => {
+  it('delete: if wrong password, throw ForbiddenException', async () => {
     // value
     // when
     mockUtilValidator.ifWrongPasswordThrow.mockRejectedValueOnce(new ForbiddenException());
@@ -120,7 +120,7 @@ describe('AdminService', () => {
     }
   });
 
-  it('adminService_delete: success', async () => {
+  it('delete: success', async () => {
     // value
     const admin = mockAdmin();
     const plainPassword = 'plainPassword';
@@ -136,7 +136,7 @@ describe('AdminService', () => {
     expect(result).toEqual(true);
   });
 
-  it('adminService_update: if already email exists', async () => {
+  it('update: if already email exists', async () => {
     // value
     const input = {
       email: '1',
@@ -159,7 +159,7 @@ describe('AdminService', () => {
     }
   });
 
-  it('adminService_update: if password exist but confirm password not, throw BadRequestException', async () => {
+  it('update: if password exist but confirm password not, throw BadRequestException', async () => {
     // value
     const input = {
       email: '1',
@@ -184,7 +184,7 @@ describe('AdminService', () => {
     }
   });
 
-  it('adminService_update: success', async () => {
+  it('update: success', async () => {
     // value
     const admin = mockAdmin();
     const input = {
@@ -211,7 +211,7 @@ describe('AdminService', () => {
     expect(result).toEqual(expected);
   });
 
-  it('adminService_getToken: success', async () => {
+  it('getToken: success', async () => {
     //value
     const input = { email: 'test@naver.com', password: 'q1w2e3r4#', errorMsg: '' };
     const expected = 'token';
@@ -223,7 +223,7 @@ describe('AdminService', () => {
     expect(result).toEqual(expected);
   });
 
-  it('adminService_restore', async () => {
+  it('restore', async () => {
     //value
     //when
     mockAdminRepository.restore.mockResolvedValue({ affected: 1 });

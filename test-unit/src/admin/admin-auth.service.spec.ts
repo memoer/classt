@@ -2,7 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import * as cf from 'class-transformer';
 import { AdminAuthService } from '@app/src/admin/application/service/admin-auth.service';
 import { AdminRepository } from '@app/src/admin/infra/admin.repository';
-import { mockRepository, MockRepositoryReturns } from '../../mock/function';
+import { mockRepositoryValue, MockRepositoryReturns } from '../../mock/function';
 import { Admin } from '@app/src/admin/domain/entity/admin.entity';
 import { AdminAuth, AdminAuthType } from '@app/src/admin/domain/entity/admin-auth.entity';
 import { mockAdmin } from '../../mock/entity';
@@ -13,7 +13,7 @@ describe('AdminAuthService', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [AdminAuthService, { provide: AdminRepository, useValue: mockRepository() }],
+      providers: [AdminAuthService, { provide: AdminRepository, useValue: mockRepositoryValue() }],
     }).compile();
 
     adminAuthService = module.get<AdminAuthService>(AdminAuthService);
@@ -24,7 +24,7 @@ describe('AdminAuthService', () => {
     expect(adminAuthService).toBeDefined();
   });
 
-  it('adminAuthService_add', async () => {
+  it('add', async () => {
     // value
     const input: { admin: Admin; newAuthTypeList: AdminAuthType[] } = {
       admin: mockAdmin(),
@@ -44,7 +44,7 @@ describe('AdminAuthService', () => {
     expect(result).toEqual(expected);
   });
 
-  it('adminAuthService_delete', async () => {
+  it('delete', async () => {
     // value
     const input: { admin: Admin; authTypeToDeleteList: AdminAuthType[] } = {
       admin: mockAdmin(),

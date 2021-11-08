@@ -12,7 +12,7 @@ module.exports = {
     '^@app/util(|/.*)$': '<rootDir>/libs/util/src/$1',
   },
   // An array of file extensions your modules use
-  moduleFileExtensions: ['js', 'json', 'ts'],
+  moduleFileExtensions: ['js', 'ts'],
   // The root directory that Jest should scan for tests and modules within
   rootDir: '.',
   // The regexp pattern or array of patterns that Jest uses to detect test files
@@ -24,7 +24,7 @@ module.exports = {
   // The test environment that will be used for testing
   testEnvironment: 'node',
   // An array of glob patterns indicating a set of files for which coverage information should be collected
-  collectCoverageFrom: ['src/**/*', 'libs/**/*'],
+  collectCoverageFrom: ['src/**/application/**/*', 'src/**/infra/*.dao.ts', 'libs/**/*'],
   coveragePathIgnorePatterns: ['node_modules', 'libs/config/*', 'libs/etc/*'],
   // An object that configures minimum threshold enforcement for coverage results
   coverageThreshold: {

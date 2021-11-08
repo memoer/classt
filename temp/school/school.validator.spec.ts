@@ -12,7 +12,7 @@ describe('SchoolValidator', () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         SchoolValidator,
-        { provide: getRepositoryToken(SchoolRepository), useValue: mockRepository() },
+        { provide: getRepositoryToken(SchoolRepository), useValue: mockRepositoryValue() },
         { provide: UtilCommon, useValue: mockUtilCommonValue() },
       ],
     }).compile();

@@ -18,9 +18,9 @@ describe('SchoolNewsService', () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         SchoolNewsService,
-        { provide: getRepositoryToken(SchoolRepository), useValue: mockRepository() },
+        { provide: getRepositoryToken(SchoolRepository), useValue: mockRepositoryValue() },
         { provide: SchoolHelper, useValue: mockSchoolHelper },
-        { provide: getRepositoryToken(SchoolNewsRepository), useValue: mockRepository() },
+        { provide: getRepositoryToken(SchoolNewsRepository), useValue: mockRepositoryValue() },
         { provide: SchoolNewsHelper, useValue: mockShoolNewHelper },
         { provide: UtilValidator, useValue: mockUtilValidatorValue() },
         { provide: EventEmitter2, useValue: mockEventEmitter() },

@@ -12,7 +12,7 @@ describe('SchoolNewsHelper', () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         SchoolNewsHelper,
-        { provide: getRepositoryToken(SchoolNewsRepository), useValue: mockRepository() },
+        { provide: getRepositoryToken(SchoolNewsRepository), useValue: mockRepositoryValue() },
         { provide: UtilValidator, useValue: mockUtilValidatorValue() },
       ],
     }).compile();
