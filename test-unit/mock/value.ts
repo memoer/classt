@@ -24,9 +24,10 @@ export interface MockRepositoryReturns {
   create: jest.Mock<any, any>;
   softDelete: jest.Mock<any, any>;
   restore: jest.Mock<any, any>;
+  recover: jest.Mock<any, any>;
   insert: jest.Mock<any, any>;
   update: jest.Mock<any, any>;
-  // findAndCount: jest.Mock<any, any>;
+  findOneOrFail: jest.Mock<any, any>;
 }
 export interface MockConnectionReturns {
   createQueryBuilder: jest.Mock<any, any>;
@@ -69,7 +70,8 @@ export const mockRepositoryValue = (): MockRepositoryReturns => ({
   restore: jest.fn(),
   insert: jest.fn(),
   update: jest.fn(),
-  // findAndCount: jest.fn(),
+  findOneOrFail: jest.fn(),
+  recover: jest.fn(),
 });
 export const mockConnectionValue = (): MockConnectionReturns => ({
   createQueryBuilder: jest.fn().mockReturnThis(),

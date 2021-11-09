@@ -173,4 +173,21 @@ describe('SchoolNewsService', () => {
     expect(cf.plainToClass).toHaveBeenCalledTimes(1);
     expect(result).toEqual(expected);
   });
+  it('restore', async () => {
+    // value
+    const id = 2;
+    const schoolNews = mockSchoolNews(mockSchool(id));
+    const expected = 'SchoolNewsModel';
+    // when
+    jest.spyOn(cf, 'plainToClass').mockReturnValue(expected);
+    mockSchoolNewsRepository.findOneOrFail.mockResolvedValue(schoolNews);
+    // then
+    const result = await schoolNewsService.restore(id);
+    expect(mockSchoolNewsRepository.findOneOrFail).toHaveBeenNthCalledWith(1, id, {
+      withDeleted: true,
+    });
+    expect(mockSchoolNewsRepository.recover).toHaveBeenNthCalledWith(1, schoolNews);
+    expect(cf.plainToClass).toHaveBeenCalledTimes(1);
+    expect(result).toEqual(expected);
+  });
 });
