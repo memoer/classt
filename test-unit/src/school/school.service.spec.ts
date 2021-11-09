@@ -10,7 +10,7 @@ import {
   mockRepositoryValue,
   MockUtilValidatorReturns,
   mockUtilValidatorValue,
-} from '../../mock/function';
+} from '../../mock/value';
 import { ConflictException, NotFoundException } from '@nestjs/common';
 import { CreateSchoolInput } from '@app/src/school/dto/create-school.in';
 import { UpdateSchoolInput } from '@app/src/school/dto/update-school.in';

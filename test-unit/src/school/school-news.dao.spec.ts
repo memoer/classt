@@ -7,7 +7,7 @@ import {
   mockConnectionValue,
   MockUtilDAOReturns,
   mockUtilDAOValue,
-} from '../../mock/function';
+} from '../../mock/value';
 import { UtilDAO } from '@app/util';
 import { GetListSubscribedSchoolNewsInput } from '@app/src/school/dto/get-list-subscribed-school-news.in';
 import { PaginationInputBySkip } from '@app/config/graphql/core.dto';

@@ -16,7 +16,7 @@ import {
   MockUtilHashReturns,
   MockUtilJwtReturns,
   MockUtilValidatorReturns,
-} from '../../mock/function';
+} from '../../mock/value';
 import { mockStudent } from '../../mock/entity';
 import { UpdateStudentInput } from '@app/src/student/dto/update-student.in';
 

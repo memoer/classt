@@ -14,7 +14,7 @@ import {
   MockUtilJwtReturns,
   MockUtilHashReturns,
   MockRepositoryReturns,
-} from '../../mock/function';
+} from '../../mock/value';
 import { CreateAdminInput } from '@app/src/admin/dto/create-admin.in';
 import { BadRequestException, ConflictException, ForbiddenException } from '@nestjs/common';
 import { mockAdmin } from '../../mock/entity';

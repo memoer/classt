@@ -7,7 +7,7 @@ import {
   mockRepositoryValue,
   MockUtilCommonReturns,
   mockUtilCommonValue,
-} from '../../mock/function';
+} from '../../mock/value';
 import { CreateSchoolInput } from '@app/src/school/dto/create-school.in';
 import { ConflictException } from '@nestjs/common';
 

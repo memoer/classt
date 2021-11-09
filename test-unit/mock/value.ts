@@ -84,4 +84,4 @@ export const mockConnectionValue = (): MockConnectionReturns => ({
   getManyAndCount: jest.fn(),
   getRawOne: jest.fn(),
 });
-export const mockEventEmitter = (): MockEventEmitterReturns => ({ emit: jest.fn() });
+export const mockEventEmitterValue = (): MockEventEmitterReturns => ({ emit: jest.fn() });

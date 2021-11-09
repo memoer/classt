@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { NotificationService } from '@app/src/notification/application/service/notification.service';
 import { NotificationRepository } from '@app/src/notification/infra/notification.repository';
-import { MockRepositoryReturns, mockRepositoryValue } from '../../mock/function';
+import { MockRepositoryReturns, mockRepositoryValue } from '../../mock/value';
 
 describe('NotificationService', () => {
   let notificationService: NotificationService;

@@ -14,13 +14,13 @@ import { School } from '@app/src/school/domain/entity/school.entity';
 import { SchoolNewsEvent } from '@app/src/school/infra/school-news.event';
 import { SchoolNewsCreatedEvent } from '@app/src/school/dto/school-news-created-event.in';
 import {
-  mockEventEmitter,
+  mockEventEmitterValue,
   MockEventEmitterReturns,
   MockRepositoryReturns,
   mockRepositoryValue,
   MockUtilValidatorReturns,
   mockUtilValidatorValue,
-} from '../../mock/function';
+} from '../../mock/value';
 import { mockSchool, mockSchoolNews } from '../../mock/entity';
 import { UpdateSchoolNewsInput } from '@app/src/school/dto/update-school.news.in';
 
@@ -42,7 +42,7 @@ describe('SchoolNewsService', () => {
         { provide: SchoolNewsRepository, useValue: mockRepositoryValue() },
         { provide: SchoolNewsHelper, useValue: { findOneOrFail: jest.fn() } },
         { provide: UtilValidator, useValue: mockUtilValidatorValue() },
-        { provide: EventEmitter2, useValue: mockEventEmitter() },
+        { provide: EventEmitter2, useValue: mockEventEmitterValue() },
       ],
     }).compile();
 

@@ -4,7 +4,7 @@ import { StudentSchoolService } from '@app/src/student/application/service/stude
 import { StudentRepository } from '@app/src/student/infra/student.repository';
 import { StudentSchool } from '@app/src/student/domain/entity/student-school.entity';
 import { Student } from '@app/src/student/domain/entity/student.entity';
-import { MockRepositoryReturns, mockRepositoryValue } from '../../mock/function';
+import { MockRepositoryReturns, mockRepositoryValue } from '../../mock/value';
 import { mockStudent, mockStudentSchool } from '../../mock/entity';
 
 describe('StudentSchoolService', () => {

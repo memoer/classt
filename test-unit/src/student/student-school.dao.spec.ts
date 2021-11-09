@@ -2,7 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import * as cf from 'class-transformer';
 import { StudentSchoolDAO } from '@app/src/student/infra/student-school.dao';
 import { getConnectionToken } from '@nestjs/typeorm';
-import { MockConnectionReturns, mockConnectionValue } from '../../mock/function';
+import { MockConnectionReturns, mockConnectionValue } from '../../mock/value';
 
 describe('StudentSchoolDAO', () => {
   let studentSchoolDAO: StudentSchoolDAO;

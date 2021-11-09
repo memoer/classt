@@ -7,7 +7,7 @@ import {
   mockRepositoryValue,
   MockUtilValidatorReturns,
   mockUtilValidatorValue,
-} from '../../mock/function';
+} from '../../mock/value';
 import { NotFoundException } from '@nestjs/common';
 
 describe('SchoolNewsHelper', () => {

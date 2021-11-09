@@ -8,7 +8,7 @@ import {
   mockConnectionValue,
   MockUtilDAOReturns,
   mockUtilDAOValue,
-} from '../../mock/function';
+} from '../../mock/value';
 import { PaginationInputBySkip } from '@app/config/graphql/core.dto';
 
 describe('SchoolDAO', () => {

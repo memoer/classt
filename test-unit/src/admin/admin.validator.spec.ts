@@ -7,7 +7,7 @@ import {
   MockRepositoryReturns,
   MockUtilCommonReturns,
   mockUtilCommonValue,
-} from '../../mock/function';
+} from '../../mock/value';
 import { ConflictException } from '@nestjs/common';
 
 describe('AdminValidator', () => {

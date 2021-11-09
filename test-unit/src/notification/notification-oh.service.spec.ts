@@ -2,7 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { NotificationOpenHostService } from '@app/src/notification/application/service/notification-oh.service';
 import { StudentSchoolDAO } from '@app/src/student/infra/student-school.dao';
 import { NotificationRepository } from '@app/src/notification/infra/notification.repository';
-import { mockRepositoryValue, MockRepositoryReturns } from '../../mock/function';
+import { mockRepositoryValue, MockRepositoryReturns } from '../../mock/value';
 
 describe('NotificationOpenHostService', () => {
   let notificationOpenHostService: NotificationOpenHostService;

@@ -2,7 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import * as cf from 'class-transformer';
 import { AdminAuthService } from '@app/src/admin/application/service/admin-auth.service';
 import { AdminRepository } from '@app/src/admin/infra/admin.repository';
-import { mockRepositoryValue, MockRepositoryReturns } from '../../mock/function';
+import { mockRepositoryValue, MockRepositoryReturns } from '../../mock/value';
 import { Admin } from '@app/src/admin/domain/entity/admin.entity';
 import { AdminAuth, AdminAuthType } from '@app/src/admin/domain/entity/admin-auth.entity';
 import { mockAdmin } from '../../mock/entity';

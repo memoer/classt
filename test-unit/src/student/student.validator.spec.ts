@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { StudentValidator } from '@app/src/student/application/lib/student.validator';
 import { UtilCommon } from '@app/util';
-import { MockUtilCommonReturns, mockUtilCommonValue } from '../../mock/function';
+import { MockUtilCommonReturns, mockUtilCommonValue } from '../../mock/value';
 import { Student } from '@app/src/student/domain/entity/student.entity';
 import { BadRequestException } from '@nestjs/common';
 import { mockStudent } from '../../mock/entity';
