@@ -1,4 +1,4 @@
-export class IfNotSubscribedThrow {
+export class IfNotSubscribedThrowArgs {
   studentId: number;
   schoolId: number;
 }

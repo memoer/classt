@@ -35,12 +35,14 @@ export interface MockConnectionReturns {
   from: jest.Mock<any, any>;
   innerJoin: jest.Mock<any, any>;
   where: jest.Mock<any, any>;
+  andWhere: jest.Mock<any, any>;
   limit: jest.Mock<any, any>;
   skip: jest.Mock<any, any>;
   getMany: jest.Mock<any, any>;
   getManyAndCount: jest.Mock<any, any>;
   getRawOne: jest.Mock<any, any>;
   orderBy: jest.Mock<any, any>;
+  getOne: jest.Mock<any, any>;
 }
 export interface MockEventEmitterReturns {
   emit: jest.Mock<any, any>;
@@ -78,6 +80,7 @@ export const mockConnectionValue = (): MockConnectionReturns => ({
   select: jest.fn().mockReturnThis(),
   from: jest.fn().mockReturnThis(),
   where: jest.fn().mockReturnThis(),
+  andWhere: jest.fn().mockReturnThis(),
   innerJoin: jest.fn().mockReturnThis(),
   limit: jest.fn().mockReturnThis(),
   skip: jest.fn().mockReturnThis(),
@@ -85,5 +88,6 @@ export const mockConnectionValue = (): MockConnectionReturns => ({
   getMany: jest.fn(),
   getManyAndCount: jest.fn(),
   getRawOne: jest.fn(),
+  getOne: jest.fn(),
 });
 export const mockEventEmitterValue = (): MockEventEmitterReturns => ({ emit: jest.fn() });

@@ -1,7 +1,7 @@
 import { UtilCommon } from '@app/util';
 import { Injectable } from '@nestjs/common';
 import { StudentSchoolDAO } from '../../infra/student-school.dao';
-import { IfNotSubscribedThrow } from '../../dto/student-school-validator.dto';
+import { IfNotSubscribedThrowArgs } from '../../dto/student-school-validator.dto';
 
 @Injectable()
 export class StudentSchoolValidator {
@@ -10,7 +10,7 @@ export class StudentSchoolValidator {
     private readonly studentSchoolDAO: StudentSchoolDAO,
   ) {}
 
-  async ifNotSubscribedThrow({ studentId, schoolId }: IfNotSubscribedThrow): Promise<void> {
+  async ifNotSubscribedThrow({ studentId, schoolId }: IfNotSubscribedThrowArgs): Promise<void> {
     const studentSchool = await this.studentSchoolDAO.findOne({ studentId, schoolId });
     if (!studentSchool) {
       throw this.utilCommon.exception({

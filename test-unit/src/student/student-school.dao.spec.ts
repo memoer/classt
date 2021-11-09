@@ -3,6 +3,7 @@ import * as cf from 'class-transformer';
 import { StudentSchoolDAO } from '@app/src/student/infra/student-school.dao';
 import { getConnectionToken } from '@nestjs/typeorm';
 import { MockConnectionReturns, mockConnectionValue } from '../../mock/value';
+import { FindOneArgs } from '@app/src/student/dto/student-school-dao.dto';
 
 describe('StudentSchoolDAO', () => {
   let studentSchoolDAO: StudentSchoolDAO;
@@ -63,6 +64,23 @@ describe('StudentSchoolDAO', () => {
     expect(mockDBConnection.select).toHaveBeenNthCalledWith(1, ['student_school']);
     expect(mockDBConnection.getMany).toHaveBeenCalledTimes(1);
     expect(cf.plainToClass).toHaveBeenCalledTimes(1);
+    expect(result).toEqual(expected);
+  });
+
+  it('findOne', async () => {
+    // value
+    const input: FindOneArgs = { studentId: 9, schoolId: 2 };
+    const expected = 'studentSchool';
+    // when
+    mockDBConnection.getOne.mockResolvedValue(expected);
+    // then
+    const result = await studentSchoolDAO.findOne(input);
+    expect(mockDBConnection.createQueryBuilder);
+    expect(mockDBConnection.select).toHaveBeenCalledTimes(1);
+    expect(mockDBConnection.from).toHaveBeenCalledTimes(1);
+    expect(mockDBConnection.where).toHaveBeenCalledTimes(1);
+    expect(mockDBConnection.andWhere).toHaveBeenCalledTimes(1);
+    expect(mockDBConnection.getOne).toHaveBeenCalledTimes(1);
     expect(result).toEqual(expected);
   });
 });

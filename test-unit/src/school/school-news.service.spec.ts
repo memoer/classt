@@ -80,7 +80,7 @@ describe('SchoolNewsService', () => {
       expect(SchoolNews.createSchoolNews).not.toHaveBeenCalled();
     }
   });
-  it('create', async () => {
+  it('create: success', async () => {
     // value
     const input: CreateSchoolNewsInput = { schoolId: 65, information: 'mock information' };
     const school = mockSchool();
@@ -127,7 +127,7 @@ describe('SchoolNewsService', () => {
       expect(mockSchoolNewsRepository.softDelete).not.toHaveBeenCalled();
     }
   });
-  it('delete', async () => {
+  it('delete: success', async () => {
     // value
     const id = 3;
     // when
@@ -156,7 +156,7 @@ describe('SchoolNewsService', () => {
       expect(schoolNews.update).not.toHaveBeenCalled();
     }
   });
-  it('update', async () => {
+  it('update: success', async () => {
     // value
     const input: UpdateSchoolNewsInput = { id: 56, information: 'test information' };
     const schoolNews = mockSchoolNews(mockSchool(input.id));
