@@ -32,15 +32,21 @@ export interface MockConnectionReturns {
   createQueryBuilder: jest.Mock<any, any>;
   select: jest.Mock<any, any>;
   from: jest.Mock<any, any>;
+  innerJoin: jest.Mock<any, any>;
   where: jest.Mock<any, any>;
+  limit: jest.Mock<any, any>;
+  skip: jest.Mock<any, any>;
   getMany: jest.Mock<any, any>;
+  getManyAndCount: jest.Mock<any, any>;
+  getRawOne: jest.Mock<any, any>;
+  orderBy: jest.Mock<any, any>;
 }
 export interface MockEventEmitterReturns {
   emit: jest.Mock<any, any>;
 }
 
 export const mockUtilCommonValue = (): MockUtilCommonReturns => ({ exception: jest.fn() });
-export const mockUtilDAO = (): MockUtilDAOReturns => ({ getSkip: jest.fn() });
+export const mockUtilDAOValue = (): MockUtilDAOReturns => ({ getSkip: jest.fn() });
 export const mockUtilHashValue = (): MockUtilHashReturns => ({
   genHash: jest.fn(),
   isEquals: jest.fn(),
@@ -70,6 +76,12 @@ export const mockConnectionValue = (): MockConnectionReturns => ({
   select: jest.fn().mockReturnThis(),
   from: jest.fn().mockReturnThis(),
   where: jest.fn().mockReturnThis(),
+  innerJoin: jest.fn().mockReturnThis(),
+  limit: jest.fn().mockReturnThis(),
+  skip: jest.fn().mockReturnThis(),
+  orderBy: jest.fn().mockReturnThis(),
   getMany: jest.fn(),
+  getManyAndCount: jest.fn(),
+  getRawOne: jest.fn(),
 });
 export const mockEventEmitter = (): MockEventEmitterReturns => ({ emit: jest.fn() });

@@ -2,6 +2,8 @@ import { AdminAuth, AdminAuthType } from '@app/src/admin/domain/entity/admin-aut
 import { Admin } from '@app/src/admin/domain/entity/admin.entity';
 import { StudentSchool } from '@app/src/student/domain/entity/student-school.entity';
 import { Student } from '@app/src/student/domain/entity/student.entity';
+import { School } from '@app/src/school/domain/entity/school.entity';
+import { SchoolNews } from '@app/src/school/domain/entity/school-news.entity';
 
 export const mockAdmin = (): Admin => {
   const admin = new Admin();
@@ -35,4 +37,19 @@ export const mockStudentSchool = ({ studentId, schoolId }: MockStudentSchool): S
   if (studentId) studentSchool.studentId = studentId;
   if (schoolId) studentSchool.schoolId = schoolId;
   return studentSchool;
+};
+export const mockSchool = (id?: number): School => {
+  const school = new School();
+  school.id = id;
+  school.location = 'mock location';
+  school.name = 'mock name';
+  return school;
+};
+export const mockSchoolNews = (school: School): SchoolNews => {
+  const schoolNews = new SchoolNews();
+  schoolNews.id = 3;
+  schoolNews.information = 'mock information';
+  schoolNews.schoolId = school.id;
+  schoolNews.school = school;
+  return schoolNews;
 };

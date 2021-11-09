@@ -10,6 +10,7 @@ module.exports = {
     '^@app/config(|/.*)$': '<rootDir>/libs/config/src/$1',
     '^@app/etc(|/.*)$': '<rootDir>/libs/etc/src/$1',
     '^@app/util(|/.*)$': '<rootDir>/libs/util/src/$1',
+    '^test-unit(|/.*)$': '<rootDir>/test-unit/$1',
   },
   // An array of file extensions your modules use
   moduleFileExtensions: ['js', 'ts'],
