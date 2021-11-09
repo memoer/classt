@@ -47,4 +47,11 @@ export class SchoolService {
     await this.schoolRepository.save(school);
     return plainToClass(SchoolModel, school);
   }
+
+  @Transactional()
+  async restore(id: number): ReturnType<SchoolMutationResolver['restore']> {
+    const school = await this.schoolRepository.findOneOrFail(id, { withDeleted: true });
+    await this.schoolRepository.recover(school);
+    return plainToClass(SchoolModel, school);
+  }
 }

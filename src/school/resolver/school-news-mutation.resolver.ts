@@ -5,6 +5,7 @@ import { SchoolNewsService } from '../application/service/school-news.service';
 import { SchoolNews } from '../domain/entity/school-news.entity';
 import { CreateSchoolNewsInput } from '../dto/create-school-news.in';
 import { DeleteSchoolNewsArgs } from '../dto/delete-school-news.in';
+import { RestoreSchoolNewsArgs } from '../dto/restore-school-news.in';
 import { SchoolNewsModel } from '../dto/school-news.model';
 import { UpdateSchoolNewsInput } from '../dto/update-school.news.in';
 
@@ -28,5 +29,11 @@ export class SchoolNewsMutationResolver {
   @RoleGuardOf(AdminAuthType.UPDATE_SCHOOL_NEWS)
   update(@Args('input') input: UpdateSchoolNewsInput): Promise<SchoolNewsModel> {
     return this.schoolNewsService.update(input);
+  }
+
+  @Mutation((returns) => SchoolNewsModel, { name: 'restoreSchoolNews' })
+  @RoleGuardOf(AdminAuthType.UPDATE_SCHOOL_NEWS)
+  restore(@Args() { id }: RestoreSchoolNewsArgs): Promise<SchoolNewsModel> {
+    return this.schoolNewsService.restore(id);
   }
 }

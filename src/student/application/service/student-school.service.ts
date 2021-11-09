@@ -5,10 +5,14 @@ import { StudentSchool } from '../../domain/entity/student-school.entity';
 import { StudentSchoolModel } from '../../dto/student-school.model';
 import { StudentRepository } from '../../infra/student.repository';
 import { StudentSchoolMutationResolver } from '../../resolver/student-school-mutation.resolver';
+import { StudentSchoolValidator } from '../lib/student-school.validator';
 
 @Injectable()
 export class StudentSchoolService {
-  constructor(private readonly studentRepository: StudentRepository) {}
+  constructor(
+    private readonly studentRepository: StudentRepository,
+    private readonly studentSchoolValidator: StudentSchoolValidator,
+  ) {}
 
   async subscribe(
     student: Student,
@@ -24,6 +28,7 @@ export class StudentSchoolService {
     student: Student,
     schoolId: number,
   ): ReturnType<StudentSchoolMutationResolver['unsubscribe']> {
+    await this.studentSchoolValidator.ifNotSubscribedThrow({ studentId: student.id, schoolId });
     student.unsubscribeSchool(schoolId);
     await this.studentRepository.save(student);
     return true;

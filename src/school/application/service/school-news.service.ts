@@ -66,4 +66,11 @@ export class SchoolNewsService {
     await this.schoolNewsRepository.save(schoolNews);
     return plainToClass(SchoolNewsModel, schoolNews);
   }
+
+  @Transactional()
+  async restore(id: number): ReturnType<SchoolNewsMutationResolver['restore']> {
+    const schoolNews = await this.schoolNewsRepository.findOneOrFail(id, { withDeleted: true });
+    await this.schoolNewsRepository.recover(schoolNews);
+    return plainToClass(SchoolNewsModel, schoolNews);
+  }
 }

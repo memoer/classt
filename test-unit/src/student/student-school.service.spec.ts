@@ -6,6 +6,7 @@ import { StudentSchool } from '@app/src/student/domain/entity/student-school.ent
 import { Student } from '@app/src/student/domain/entity/student.entity';
 import { MockRepositoryReturns, mockRepositoryValue } from '../../mock/value';
 import { mockStudent, mockStudentSchool } from '../../mock/entity';
+import { StudentSchoolValidator } from '@app/src/student/application/lib/student-school.validator';
 
 describe('StudentSchoolService', () => {
   let studentSchoolService: StudentSchoolService;
@@ -16,6 +17,7 @@ describe('StudentSchoolService', () => {
       providers: [
         StudentSchoolService,
         { provide: StudentRepository, useValue: mockRepositoryValue() },
+        { provide: StudentSchoolValidator, useValue: { ifNotSubscribedThrow: jest.fn() } },
       ],
     }).compile();
 

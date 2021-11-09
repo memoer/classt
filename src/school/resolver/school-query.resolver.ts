@@ -12,7 +12,10 @@ import { SchoolDAO } from '../infra/school.dao';
 export class SchoolQueryResolver {
   constructor(private readonly schoolDAO: SchoolDAO) {}
 
-  @Query((type) => GetListSubscribedSchoolOutput, { name: 'getListSubscribedSchool' })
+  @Query((type) => GetListSubscribedSchoolOutput, {
+    name: 'getListSubscribedSchool',
+    description: '학생이 구독중인 학교 묵록',
+  })
   @UseInterceptors(PaginationOutputInterceptor)
   getListSubscribed(
     @CurrentUser() me: Student,

@@ -13,7 +13,10 @@ import { SchoolNewsDAO } from '../infra/school-news.dao';
 export class SchoolNewsQueryResolver {
   constructor(private readonly schoolNewsDAO: SchoolNewsDAO) {}
 
-  @Query((type) => GetListSubscribedSchoolNewsOutput, { name: 'getListSubscribedSchoolNews' })
+  @Query((type) => GetListSubscribedSchoolNewsOutput, {
+    name: 'getListSubscribedSchoolNews',
+    description: '학생이 구독중인 학교들의 소식 묵록',
+  })
   @UseInterceptors(PaginationOutputInterceptor)
   getListSubscribed(
     @CurrentUser() me: Student,
@@ -22,7 +25,10 @@ export class SchoolNewsQueryResolver {
     return this.schoolNewsDAO.getListSubscribed(me.id, input);
   }
 
-  @Query((type) => GetListSubscribedSchoolNewsOutput, { name: 'getListArchivedSchoolNews' })
+  @Query((type) => GetListSubscribedSchoolNewsOutput, {
+    name: 'getListArchivedSchoolNews',
+    description: '학생이 구독한 시점부터 종료까지의 모든 소식들의 모음집',
+  })
   @UseInterceptors(PaginationOutputInterceptor)
   getListArchived(
     @CurrentUser() me: Student,

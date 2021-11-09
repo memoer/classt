@@ -4,6 +4,7 @@ import { Args, Mutation, Resolver } from '@nestjs/graphql';
 import { SchoolService } from '../application/service/school.service';
 import { CreateSchoolInput } from '../dto/create-school.in';
 import { DeleteSchoolArgs } from '../dto/delete-school.in';
+import { RestoreSchoolArgs } from '../dto/restore-school.in';
 import { SchoolModel } from '../dto/school.model';
 import { UpdateSchoolInput } from '../dto/update-school.in';
 
@@ -27,5 +28,11 @@ export class SchoolMutationResolver {
   @RoleGuardOf(AdminAuthType.UPDATE_SCHOOL)
   update(@Args('input') input: UpdateSchoolInput): Promise<SchoolModel> {
     return this.schoolService.update(input);
+  }
+
+  @Mutation((returns) => SchoolModel, { name: 'restoreSchool' })
+  @RoleGuardOf(AdminAuthType.UPDATE_SCHOOL)
+  restore(@Args() { id }: RestoreSchoolArgs): Promise<SchoolModel> {
+    return this.schoolService.restore(id);
   }
 }

@@ -11,7 +11,10 @@ import { SubscribeSchoolArgs } from '../dto/subscribe-school.in';
 export class StudentSchoolMutationResolver {
   constructor(private readonly subscribeSchoolService: StudentSchoolService) {}
 
-  @Mutation((returns) => StudentSchoolModel, { name: 'subscribeSchool' })
+  @Mutation((returns) => StudentSchoolModel, {
+    name: 'subscribeSchool',
+    description: '학교를 구독할 때 사용합니다.',
+  })
   subscribe(
     @CurrentUser() me: Student,
     @Args() { schoolId }: SubscribeSchoolArgs,
@@ -19,7 +22,10 @@ export class StudentSchoolMutationResolver {
     return this.subscribeSchoolService.subscribe(me, schoolId);
   }
 
-  @Mutation((returns) => Boolean, { name: 'unsubscribeSchool' })
+  @Mutation((returns) => Boolean, {
+    name: 'unsubscribeSchool',
+    description: '구독했던 학교를 취소할 때 사용합니다.',
+  })
   unsubscribe(
     @CurrentUser() me: Student,
     @Args() { schoolId }: SubscribeSchoolArgs,

@@ -8,6 +8,7 @@ import { StudentQueryResolver } from './resolver/student-query.resolver';
 import { StudentSchoolMutationResolver } from './resolver/student-school-mutation.resolver';
 import { StudentSchoolDAO } from './infra/student-school.dao';
 import { StudentValidator } from './application/lib/student.validator';
+import { StudentSchoolValidator } from './application/lib/student-school.validator';
 
 @Module({
   imports: [TypeOrmModule.forFeature([StudentRepository])],
@@ -21,6 +22,7 @@ import { StudentValidator } from './application/lib/student.validator';
     StudentSchoolService,
     StudentSchoolDAO,
     StudentValidator,
+    StudentSchoolValidator,
   ],
   exports: [StudentSchoolDAO],
 })

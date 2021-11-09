@@ -3,7 +3,7 @@ import { InjectConnection } from '@nestjs/typeorm';
 import { plainToClass } from 'class-transformer';
 import { Connection } from 'typeorm';
 import { StudentSchool } from '../domain/entity/student-school.entity';
-import { FindManyBySchoolIdArgs } from '../dto/student-school-dao.dto';
+import { FindManyBySchoolIdArgs, FindOneArgs } from '../dto/student-school-dao.dto';
 import { StudentSchoolModel } from '../dto/student-school.model';
 
 @Injectable()
@@ -25,5 +25,15 @@ export class StudentSchoolDAO {
     }
     const dataList = await qb.getMany();
     return plainToClass(StudentSchoolModel, dataList);
+  }
+
+  async findOne({ studentId, schoolId }: FindOneArgs): Promise<StudentSchool> {
+    return this.dbConn
+      .createQueryBuilder()
+      .select(['student_school'])
+      .from(StudentSchool, 'student_school')
+      .where('student_school.studentId = :studentId', { studentId })
+      .andWhere('student_school.schoolId = :schoolId', { schoolId })
+      .getOne();
   }
 }
