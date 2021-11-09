@@ -1,5 +1,3 @@
-api description, ERD, Table column 설명 등등...은 [개인 노션](https://jnam.notion.site/Classting-3ef34af4daf64d4bbc7b7e29e5c54df8) 에 작성하였으니, 링크 통해 들어가셔서 확인해주시면 됩니다.
-
 ### Start
 
 `yarn start:dev <local|dev|staging>`
