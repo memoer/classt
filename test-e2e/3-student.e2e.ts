@@ -1,7 +1,7 @@
 import { CreateStudentOutput } from '@app/src/student/dto/create-student.out';
 import { StudentModel } from '@app/src/student/dto/student.model';
 import { ApiTestBuilder } from './common/api-test.builder';
-import { getDataFromBody, testDescription } from './common/fn';
+import { getDataFromBody, testDescription } from './common/function';
 
 export const studentE2ETest = (apiBuilder: ApiTestBuilder): void =>
   describe('[E2E] StudentResolver', () => {

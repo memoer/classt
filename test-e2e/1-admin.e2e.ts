@@ -2,7 +2,7 @@ import { AdminAuthModel } from '@app/src/admin/dto/admin-auth.model';
 import { AdminModel } from '@app/src/admin/dto/admin.model';
 import { CreateAdminOutput } from '@app/src/admin/dto/create-admin.out';
 import { ApiTestBuilder } from './common/api-test.builder';
-import { getDataFromBody, testDescription } from './common/fn';
+import { getDataFromBody, testDescription } from './common/function';
 
 class AdminModelWithResolveType extends AdminModel {
   authList: AdminAuthModel[];

@@ -1,7 +1,7 @@
 import { AdminAuthModel } from '@app/src/admin/dto/admin-auth.model';
 import { SchoolModel } from '@app/src/school/dto/school.model';
 import { ApiTestBuilder } from './common/api-test.builder';
-import { getDataFromBody, getErrorFromBody, testDescription } from './common/fn';
+import { getDataFromBody, getErrorFromBody, testDescription } from './common/function';
 
 export const schoolE2ETest = (apiBuilder: ApiTestBuilder): void =>
   describe('[E2E] SchoolResolver', () => {

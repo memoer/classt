@@ -1,4 +1,4 @@
-import { getDataFromBody, getErrorFromBody, testDescription } from './common/fn';
+import { getDataFromBody, getErrorFromBody, testDescription } from './common/function';
 import { ApiTestBuilder } from './common/api-test.builder';
 import { SchoolModel } from '@app/src/school/dto/school.model';
 import { SchoolNewsModel } from '@app/src/school/dto/school-news.model';

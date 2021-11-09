@@ -4,7 +4,7 @@ import { SchoolModel } from '@app/src/school/dto/school.model';
 import { StudentSchoolModel } from '@app/src/student/dto/student-school.model';
 import { ApiTestBuilder } from './common/api-test.builder';
 import { PaginationOutput } from './common/common.interface';
-import { getDataFromBody, getErrorFromBody, testDescription } from './common/fn';
+import { getDataFromBody, getErrorFromBody, testDescription } from './common/function';
 
 export const studentSchoolE2ETest = (apiBuilder: ApiTestBuilder): void =>
   describe('[E2E] StudentSchoolResolver', () => {

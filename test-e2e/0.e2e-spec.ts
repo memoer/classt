@@ -8,7 +8,6 @@ import { studentSchoolE2ETest } from './4-student-school.e2e';
 import { notificationE2ETest } from './5-notification.e2e';
 import { deleteE2ETest } from './99-delete.e2e';
 import { ApiTestBuilder } from './common/api-test.builder';
-import { clearTestData } from './common/db';
 
 let nestApp: INestApplication;
 const apiBuilder = new ApiTestBuilder();
@@ -22,7 +21,6 @@ beforeAll(async () => {
   await nestApp.init();
 });
 afterAll(async () => {
-  await clearTestData();
   nestApp.close();
 });
 // ! start test

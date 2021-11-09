@@ -31,7 +31,7 @@ export const DatabaseModule = TypeOrmModule.forRootAsync({
       password: process.env.DB_PASSWORD,
       database: process.env.DB_DATABASE,
       entities: registerEntity('admin', 'school', 'student', 'notification'),
-      synchronize: process.env.NODE_ENV === 'local' || process.env.NODE_ENV === 'dev',
+      synchronize: process.env.NODE_ENV === 'local' || process.env.NODE_ENV === 'test',
       logging: loggingOnEnv(),
       namingStrategy: new SnakeNamingStrategy(),
     };
