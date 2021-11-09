@@ -13,8 +13,5 @@ export const clearTestData = async (): Promise<void> => {
   const promiseList = tableList.map((table) =>
     getConnection().createQueryBuilder().delete().from(table).execute(),
   );
-  const result = await Promise.all(promiseList);
-  result.forEach((v, idx) => {
-    console.log(`${tableList[idx]} delete -> ${v.affected}`);
-  });
+  await Promise.all(promiseList);
 };
