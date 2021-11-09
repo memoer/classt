@@ -44,6 +44,7 @@ export const studentE2ETest = (apiBuilder: ApiTestBuilder): void =>
           expect(token).toEqual(expect.any(String));
         }),
     );
+
     it(testDescription('mutation', '학생은 자신의 정보를 수정할 수 있어야 한다.'), () =>
       apiBuilder
         .query(
@@ -81,6 +82,7 @@ export const studentE2ETest = (apiBuilder: ApiTestBuilder): void =>
           expect(birthDate).toEqual('2021-09-01T15:08:06.555Z');
         }),
     );
+
     it(testDescription('query', '학생은 자신의 토큰을 조회할 수 있어야 한다.'), () =>
       apiBuilder
         .query(
@@ -98,6 +100,7 @@ export const studentE2ETest = (apiBuilder: ApiTestBuilder): void =>
           expect(token).toEqual(expect.any(String));
         }),
     );
+
     it(testDescription('query', '학생은 자기 정보를 조회할 수 있어야 한다.'), () =>
       apiBuilder
         .query(

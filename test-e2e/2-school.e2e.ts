@@ -22,6 +22,7 @@ export const schoolE2ETest = (apiBuilder: ApiTestBuilder): void =>
           expect(error[0].extensions.response.statusCode).toEqual(403);
         }),
     );
+
     it(testDescription('mutation', '관리자에게 권한을 추가할 수 있어야 한다.'), () =>
       apiBuilder
         .query(
@@ -42,6 +43,7 @@ export const schoolE2ETest = (apiBuilder: ApiTestBuilder): void =>
           );
         }),
     );
+
     it(
       testDescription(
         'mutation',
@@ -66,6 +68,7 @@ export const schoolE2ETest = (apiBuilder: ApiTestBuilder): void =>
             expect(name).toEqual('연세대');
           }),
     );
+
     it(testDescription('mutation', '권한이 있는 학교의 정보를 수정할 수 있어야 한다.'), () =>
       apiBuilder
         .query(

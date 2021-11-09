@@ -16,6 +16,7 @@ export const deleteE2ETest = (apiBuilder: ApiTestBuilder): void =>
           expect(isSuccess).toEqual(true);
         }),
     );
+
     it(testDescription('mutation', '탈퇴된 관리자를 복구시킬 수 있어야 한다.'), () =>
       apiBuilder
         .query('mutation', `restoreAdmin(id:${apiBuilder.getAdmin().id})`)
@@ -26,6 +27,7 @@ export const deleteE2ETest = (apiBuilder: ApiTestBuilder): void =>
           expect(isSuccess).toEqual(true);
         }),
     );
+
     it(
       testDescription(
         'mutation',
@@ -42,6 +44,7 @@ export const deleteE2ETest = (apiBuilder: ApiTestBuilder): void =>
             expect(isSuccess).toEqual(true);
           }),
     );
+
     it(
       testDescription(
         'mutation',
@@ -62,6 +65,7 @@ export const deleteE2ETest = (apiBuilder: ApiTestBuilder): void =>
             expect(information).toEqual(expect.any(String));
           }),
     );
+
     it(
       testDescription('mutation', '학생은 구독 중인 학교 페이지를 구독 취소할 수 있어야 한다.'),
       () =>
@@ -75,6 +79,7 @@ export const deleteE2ETest = (apiBuilder: ApiTestBuilder): void =>
             expect(isSuccess).toEqual(true);
           }),
     );
+
     it(
       testDescription(
         'mutation',
@@ -91,6 +96,7 @@ export const deleteE2ETest = (apiBuilder: ApiTestBuilder): void =>
             expect(err.extensions.response.statusCode).toEqual(400);
           }),
     );
+
     it(testDescription('mutation', '권한이 있는 관리자는 학교를 제거할 수 있어야 한다.'), () =>
       apiBuilder
         .query('mutation', `deleteSchool(id:${apiBuilder.getSchoolId()})`)
@@ -102,6 +108,7 @@ export const deleteE2ETest = (apiBuilder: ApiTestBuilder): void =>
           expect(isSuccess).toEqual(true);
         }),
     );
+
     it(
       testDescription('mutation', '권한이 있는 관리자는 제거된 학교를 복구시킬 수 있어야 한다.'),
       () =>
@@ -117,6 +124,7 @@ export const deleteE2ETest = (apiBuilder: ApiTestBuilder): void =>
             expect(location).toEqual(expect.any(String));
           }),
     );
+
     it(testDescription('mutation', '학생은 회원탈퇴를 할 수 있어야 한다.'), () =>
       apiBuilder
         .query('mutation', `deleteStudent(password:"${apiBuilder.getStudent().password}")`)
@@ -128,6 +136,7 @@ export const deleteE2ETest = (apiBuilder: ApiTestBuilder): void =>
           expect(isSuccess).toEqual(true);
         }),
     );
+
     it(testDescription('mutation', '회원탈퇴했던 학생을 복구시킬 수 있어야 한다.'), () =>
       apiBuilder
         .query(

@@ -29,6 +29,7 @@ export const studentSchoolE2ETest = (apiBuilder: ApiTestBuilder): void =>
           expect(studentId).toEqual(apiBuilder.getStudent().id);
         }),
     );
+
     it(
       testDescription('mutation', '권한이 없는 관리자는 학교에 소식을 추가할 수 없어야 한다.'),
       () =>
@@ -48,6 +49,7 @@ export const studentSchoolE2ETest = (apiBuilder: ApiTestBuilder): void =>
             expect(error[0].extensions.response.statusCode).toEqual(403);
           }),
     );
+
     it(testDescription('mutation', '관리자에게 권한을 추가할 수 있어야 한다.'), () =>
       apiBuilder
         .query(
@@ -68,6 +70,7 @@ export const studentSchoolE2ETest = (apiBuilder: ApiTestBuilder): void =>
           );
         }),
     );
+
     it(
       testDescription(
         'mutation',
@@ -91,6 +94,7 @@ export const studentSchoolE2ETest = (apiBuilder: ApiTestBuilder): void =>
             expect(information).toEqual('test information');
           }),
     );
+
     it(
       testDescription(
         'mutation',
@@ -113,6 +117,7 @@ export const studentSchoolE2ETest = (apiBuilder: ApiTestBuilder): void =>
             expect(information).toEqual('updated information');
           }),
     );
+
     it(testDescription('query', '학생은 구독 중인 학교 페이지 묵록을 확인할 수 있어야 한다.'), () =>
       apiBuilder
         .query(
@@ -174,6 +179,7 @@ export const studentSchoolE2ETest = (apiBuilder: ApiTestBuilder): void =>
           expect(totalPage).toEqual(expect.any(Number));
         }),
     );
+
     it(
       testDescription(
         'query',

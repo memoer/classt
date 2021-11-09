@@ -10,7 +10,7 @@ class AdminModelWithResolveType extends AdminModel {
 
 export const adminE2ETest = (apiBuilder: ApiTestBuilder): void =>
   describe('[E2E] AdminResolver', () => {
-    it(testDescription('query', '관리자 아이디를 만들 수 있어야 한다.'), () =>
+    it(testDescription('mutation', '관리자 아이디를 만들 수 있어야 한다.'), () =>
       apiBuilder
         .query(
           'mutation',
@@ -32,7 +32,8 @@ export const adminE2ETest = (apiBuilder: ApiTestBuilder): void =>
           expect(authList).toEqual([]);
         }),
     );
-    it(testDescription('mutation', '관리자의 토큰을 조회할 수 있어야 한다.'), () =>
+
+    it(testDescription('query', '관리자의 토큰을 조회할 수 있어야 한다.'), () =>
       apiBuilder
         .query(
           'query',
@@ -48,6 +49,7 @@ export const adminE2ETest = (apiBuilder: ApiTestBuilder): void =>
           expect(token).toEqual(expect.any(String));
         }),
     );
+
     it(testDescription('mutation', '관리자의 정보를 수정할 수 있어야 한다.'), () =>
       apiBuilder
         .query(
@@ -71,6 +73,7 @@ export const adminE2ETest = (apiBuilder: ApiTestBuilder): void =>
           expect(name).toEqual('zxc');
         }),
     );
+
     it(testDescription('query', '관리자의 정보를 조회할 수 있어야 한다.'), () =>
       apiBuilder
         .query(
@@ -95,6 +98,7 @@ export const adminE2ETest = (apiBuilder: ApiTestBuilder): void =>
           expect(authList).toEqual([]);
         }),
     );
+
     it(testDescription('mutation', '관리자에게 권한을 추가할 수 있어야 한다.'), () =>
       apiBuilder
         .query(
@@ -116,6 +120,7 @@ export const adminE2ETest = (apiBuilder: ApiTestBuilder): void =>
           );
         }),
     );
+
     it(testDescription('mutation', '관리자의 권한을 제거할 수 있어야 한다.'), () =>
       apiBuilder
         .query('mutation', `deleteAdminAuth(authTypeList: [CREATE_SCHOOL, CREATE_SCHOOL_NEWS])`)
